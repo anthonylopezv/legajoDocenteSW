@@ -98,6 +98,8 @@ exports.getAccount = function(req, res) {
 exports.postUpdateProfile = function(req, res) {
   req.assert('email', 'Email is not valid').isEmail();
 
+  
+
   UserRepo.changeProfileData(req.user.id, req.body)
     .then(function() {
       req.flash('success', { msg: 'Profile information updated.' });

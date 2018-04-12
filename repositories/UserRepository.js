@@ -65,10 +65,11 @@ repo.changeProfileData = function(userId, reqBody) {
   return db.User.findById(userId)
     .then(function(user) {
       user.email = reqBody.email || '';
-      user.profile.name = reqBody.name || '';
-      user.profile.gender = reqBody.gender || '';
-      user.profile.location = reqBody.location || '';
-      user.profile.website = reqBody.website || '';
+      user.nombre = reqBody.nombre || '';
+      user.apellido = reqBody.apellido || '';
+      user.genero = reqBody.genero || '';
+      user.pais = reqBody.pais || '';
+      user.pag_web = reqBody.pag_web || '';
       user.set('profile', user.profile);
 
       if(user.changed('email')) {

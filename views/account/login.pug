@@ -2,43 +2,43 @@ extends ../layout
 
 block content
   .page-header
-    h3 Sign in
+    h3 Iniciar sesión
   form.form-horizontal(method='POST' action='/login')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-      label.col-sm-3.control-label Email
+      label.col-sm-3.control-label Correo
       .col-sm-7
-        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, required)
+        input.form-control(type='email', name='email', id='email', placeholder='Correo institucional', autofocus, required)
     .form-group
-      label.col-sm-3.control-label Password
+      label.col-sm-3.control-label Contraseña
       .col-sm-7
-        input.form-control(type='password', name='password', id='password', placeholder='Password', required)
+        input.form-control(type='password', name='password', id='password', placeholder='Contraseña', required)
     .form-group
       .col-sm-offset-3.col-sm-7
         button.col-sm-3.btn.btn-primary(type='submit')
           i.far.fa-user.fa-sm
-          | Login
-        a.btn.btn-link(href='/forgot') Forgot your password?
+          | Ingresar
+        a.btn.btn-link(href='/forgot') Te has olvidado tu contraseña?
     .form-group
       .col-sm-offset-3.col-sm-7
         hr
-    .form-group
-      .col-sm-offset-3.col-sm-7
-        a.btn.btn-block.btn-facebook.btn-social(href='/auth/facebook')
-          i.fab.fa-facebook-f.fa-sm
-          | Sign in with Facebook
-        a.btn.btn-block.btn-twitter.btn-social(href='/auth/twitter')
-          i.fab.fa-twitter.fa-sm
-          | Sign in with Twitter
-        a.btn.btn-block.btn-google.btn-social(href='/auth/google')
-          i.fab.fa-google-plus-g.fa-xs
-          | Sign in with Google
-        a.btn.btn-block.btn-github.btn-social(href='/auth/github')
-          i.fab.fa-github.fa-sm
-          | Sign in with GitHub
-        a.btn.btn-block.btn-linkedin.btn-social(href='/auth/linkedin')
-          i.fab.fa-linkedin-in.fa-sm
-          | Sign in with LinkedIn
-        a.btn.btn-block.btn-instagram.btn-social(href='/auth/instagram')
-          i.fab.fa-instagram.fa-sm
-          | Sign in with Instagram
+    //- .form-group
+    //-   .col-sm-offset-3.col-sm-7
+    //-     a.btn.btn-block.btn-facebook.btn-social(href='/auth/facebook')
+    //-       i.fab.fa-facebook-f.fa-sm
+    //-       | Sign in with Facebook
+    //-     a.btn.btn-block.btn-twitter.btn-social(href='/auth/twitter')
+    //-       i.fab.fa-twitter.fa-sm
+    //-       | Sign in with Twitter
+    //-     a.btn.btn-block.btn-google.btn-social(href='/auth/google')
+    //-       i.fab.fa-google-plus-g.fa-xs
+    //-       | Sign in with Google
+    //-     a.btn.btn-block.btn-github.btn-social(href='/auth/github')
+    //-       i.fab.fa-github.fa-sm
+    //-       | Sign in with GitHub
+    //-     a.btn.btn-block.btn-linkedin.btn-social(href='/auth/linkedin')
+    //-       i.fab.fa-linkedin-in.fa-sm
+    //-       | Sign in with LinkedIn
+    //-     a.btn.btn-block.btn-instagram.btn-social(href='/auth/instagram')
+    //-       i.fab.fa-instagram.fa-sm
+    //-       | Sign in with Instagram
