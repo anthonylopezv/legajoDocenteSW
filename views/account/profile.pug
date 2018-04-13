@@ -2,22 +2,23 @@ extends ../layout
 
 block content
   .page-header
-    h3 Datos personales
+    h3 Informacion Personal
 
   form.form-horizontal(action='/account/profile', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-      label.col-sm-3.control-label(for='nombre') Nombres
+      label.col-sm-3.control-label(for='apell_pat') Apellido Paterno
       .col-sm-7
-        input.form-control(type='text', name='nombre', id='nombre', value=user.nombre)
+        input.form-control(type='text', name='apell_pat', id='apell_pat', value=user.apell_pat)
     .form-group
-      label.col-sm-3.control-label(for='apellido') Apellidos
+      label.col-sm-3.control-label(for='apell_mat') Apellido Materno
       .col-sm-7
-        input.form-control(type='text', name='apellido', id='apellido', value=user.apellido)    
+        input.form-control(type='text', name='apell_mat', id='apell_mat', value=user.apell_mat)         
     .form-group
-      label.col-sm-3.control-label(for='email') Correo
+      label.col-sm-3.control-label(for='nombres') Nombres
       .col-sm-7
-        input.form-control(type='email', name='email', id='email', value=user.email)
+        input.form-control(type='text', name='nombres', id='nombres', value=user.nombres)
+    
     .form-group
       label.col-sm-3.control-label Genero
       .col-sm-6
@@ -27,14 +28,41 @@ block content
         label.radio.col-sm-3
           input(type='radio', checked=user.genero=='F', name='genero', value='F', data-toggle='radio')
           span Femenino
+    
     .form-group
-      label.col-sm-3.control-label(for='pais') Pais
+      label.col-sm-3.control-label(for='email') Correo
+      .col-sm-7
+        input.form-control(type='email', name='email', id='email', value=user.email)
+    .form-group
+      label.col-sm-3.control-label(for='pais') Nacionalidad
       .col-sm-7
         input.form-control(type='text', name='pais', id='pais', value=user.pais)
+    
+    .form-group
+      label.col-sm-3.control-label Tipo de Documento
+      .col-sm-4
+        label.radio.col-sm-2
+          input(type='radio', checked=user.tipo_document=='DNI', name='tipo_document', value='DNI', data-toggle='radio')
+          span DNI
+        label.radio.col-sm-2
+          input(type='radio', checked=user.tipo_document=='CE', name='tipo_document', value='CE', data-toggle='radio')
+          span C.E
+      label.col-sm-1.control-label Nro. de Documento
+      .col-sm-2
+        input.form-control(type='number', name='nro_document', id='nro_document', value=user.nro_document)
+    
     .form-group
       label.col-sm-3.control-label(for='pag_web') Página web
       .col-sm-7
         input.form-control(type='text', name='pag_web', id='pag_web', value=user.pag_web)
+    .form-group
+      label.col-sm-3.control-label(for='pag_web') Teléfono
+      .col-sm-7
+        input.form-control(type='number', name='telefono', id='telefono', value=user.telefono)
+    .form-group
+      label.col-sm-3.control-label(for='pag_web') Celular
+      .col-sm-7
+        input.form-control(type='number', name='celular', id='celular', value=user.celular)
     .form-group
       label.col-sm-3.control-label Foto
       .col-sm-4

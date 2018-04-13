@@ -49,38 +49,62 @@ var beforeSaveHook = function(user, options, fn) {
 
 module.exports = function(db, DataTypes) {
   var User = db.define('User', {
-    // id: {
-    //   type: DataTypes.INTEGER,
-    //   autoIncrement: true,
-    //   allowNull: false,
-    //   primaryKey: true
-    // },
-    nombre: DataTypes.STRING,
-    apellido: DataTypes.STRING,
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true
+    },
+    //Informacion Personal
+    nombres: DataTypes.STRING,
+    apell_pat: DataTypes.STRING,
+    apell_mat: DataTypes.STRING,
+    pais: DataTypes.STRING,
+    tipo_document: DataTypes.STRING,
+    nro_document: DataTypes.INTEGER,
     codigo: DataTypes.STRING,
-    dni: DataTypes.STRING,
+    telefono:DataTypes.INTEGER,
+    celular: DataTypes.INTEGER,
     email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
       isEmail: true
-    },  
-    password: DataTypes.STRING,
-    celular: DataTypes.INTEGER,
-    genero: DataTypes.STRING(1),
-    pag_web: DataTypes.STRING,
-    foto: DataTypes.STRING,
-    fecha_nac: DataTypes.DATE,
-    pais: DataTypes.STRING,
-    direccion: DataTypes.STRING,
-    sunedu_ley: DataTypes.STRING(2),
-    categoria: DataTypes.STRING,
-    regimen_dedicacion: DataTypes.STRING,
-    cv: DataTypes.STRING,
+    },
     linkedInId: {
       type: DataTypes.STRING,
       unique: true
     },
+    password: DataTypes.STRING,
+    genero: DataTypes.STRING(1),
+    pag_web: DataTypes.STRING,
+    foto: DataTypes.STRING,
+    fecha_nac: DataTypes.DATE,
+    direccion: DataTypes.STRING,
+    //fin informacion personal
+
+    //Perfil academico
+    mayor_grado: DataTypes.STRING,
+    menc_grado: DataTypes.STRING,
+    universidad: DataTypes.STRING,
+    pais_grado: DataTypes.STRING,
+    cv: DataTypes.STRING,
+    //fin perfil academico
+
+    //Informacion del docente
+    fech_ingreso: DataTypes.DATE,
+    sunedu_ley: DataTypes.STRING(2),
+    nivel_programa: DataTypes.STRING,
+    categoria: DataTypes.STRING,
+    regimen_dedicacion: DataTypes.STRING,
+    horas_semanales: DataTypes.INTEGER,
+    investigador:DataTypes.STRING(2),
+    dina:DataTypes.STRING(2),
+    per_academico: DataTypes.STRING,
+    //fin informacion del docente
+
+    //observaciones
+    observacion: DataTypes.STRING,
 
     resetPasswordExpires: DataTypes.DATE,
     resetPasswordToken: DataTypes.STRING,

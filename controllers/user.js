@@ -97,9 +97,6 @@ exports.getAccount = function(req, res) {
 
 exports.postUpdateProfile = function(req, res) {
   req.assert('email', 'Email is not valid').isEmail();
-
-  
-
   UserRepo.changeProfileData(req.user.id, req.body)
     .then(function() {
       req.flash('success', { msg: 'Profile information updated.' });
@@ -109,6 +106,8 @@ exports.postUpdateProfile = function(req, res) {
       req.flash('errors', { msg: err });
       res.redirect('/account');
     });
+    console.log("********************************************************");
+    console.log(req.body);
 };
 
 exports.postUpdatePassword = function(req, res) {
