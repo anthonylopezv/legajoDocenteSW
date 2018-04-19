@@ -26,9 +26,9 @@ module.exports = {
 
   //will be generated. Take a look at the bottom of this file
   postgres: {
-    username: "postgres",
-    password: "postgres",
-    database: "legajo_docente",
+    username: "xtgmbmry",
+    password: "o22aNW_UK2_opuG1CwvlU-4wxyp5GwIP",
+    database: "xtgmbmry",
     host: "localhost",
     port: 5432,
     dialect: "postgres",

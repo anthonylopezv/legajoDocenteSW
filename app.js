@@ -48,7 +48,7 @@ const passportConf = require('./config/passport');
  * Create Express server.
  */
 const app = express();
-
+app.locals.moment = require('moment');
 /* Avoid not responsing when server load is huge */
 // app.use(function(req, res, next) {
 //   if (toobusy()) {
