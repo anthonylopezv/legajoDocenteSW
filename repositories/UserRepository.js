@@ -103,6 +103,25 @@ repo.changeAcademicProfileData = function(userId, reqBody) {
     });
 };
 
+repo.changeTeacherInformationData = function(userId, reqBody) {
+  return db.User.findById(userId)
+    .then((user) => {
+      user.fech_ingreso = reqBody.fech_ingreso || user.fech_ingreso;
+      user.sunedu_ley = reqBody.sunedu_ley || user.sunedu_ley;
+      user.pregrado = reqBody.pregrado || user.pregrado;
+      user.maestria = reqBody.maestria || user.maestria;
+      user.doctorado = reqBody.doctorado || user.doctorado;
+      user.categoria = reqBody.categoria || user.categoria;
+      user.regimen_dedicacion = reqBody.regimen_dedicacion || user.regimen_dedicacion;
+      user.horas_semanales = reqBody.horas_semanales || user.horas_semanales;
+      user.investigador = reqBody.investigador || user.investigador;
+      user.dina = reqBody.dina || user.dina;
+      user.per_academico = reqBody.per_academico || user.per_academico;
+
+      return user.save();
+    });
+};
+
 repo.findUserByResetPswToken = function(token) {
   return db.User.findOne({
     where: {
@@ -157,11 +176,12 @@ repo.unlinkProviderFromAccount = function(provider, userId) {
         throw 'User was not found.';
 
       var attrInfo = {};
-      attrInfo[provider + 'Id'] = null;
+      attrInfo['linkedInId'] = null;
+      attrInfo.pag_web = null;
       attrInfo.tokens = user.tokens || {};
       attrInfo.tokens[provider.toLowerCase()] = null;
-      if(provider === 'twitter')
-        attrInfo.tokens.twitterSecret = null;
+      // if(provider === 'twitter')
+      //   attrInfo.tokens.twitterSecret = null;
 
       return user.updateAttributes(attrInfo);
     });
@@ -395,6 +415,7 @@ repo.linkLinkedInProfile = function(userId, accessToken, tokenSecret, profile) {
     })
     .then(function(user) {
       user.linkedInId = profile.id.toString();
+      user.pag_web = user.pag_web || profile._json.publicProfileUrl;
       if(!user.tokens) user.tokens = {};
       if(!user.profile) user.profile = {};
       user.tokens.linkedin = accessToken;

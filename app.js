@@ -155,6 +155,7 @@ app.post('/contact', contactController.postContact);
 app.get('/account', passportConf.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/academic_profile', passportConf.isAuthenticated, userController.postUpdateAcademicProfile);
+app.post('/account/teacher_information', passportConf.isAuthenticated, userController.postUpdateTeacherInformation);
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.delete('/account', passportConf.isAuthenticated, userController.deleteAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);

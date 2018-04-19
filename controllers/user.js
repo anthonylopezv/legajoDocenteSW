@@ -129,6 +129,23 @@ exports.postUpdateAcademicProfile = function(req, res) {
     });
 };
 
+exports.postUpdateTeacherInformation = function(req, res) {
+  req.assert('email', 'Email is not valid').isEmail();
+  UserRepo.changeTeacherInformationData(req.user.id, req.body)
+    .then(function(data) {
+      console.log(data);
+      
+      req.flash('success', { msg: 'Teacher information updated.' });
+      res.redirect('/account');
+    })
+    .catch(function(err) {
+      console.log(err);
+      
+      req.flash('errors', { msg: err });
+      res.redirect('/account');
+    });
+};
+
 exports.postUpdatePassword = function(req, res) {
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);

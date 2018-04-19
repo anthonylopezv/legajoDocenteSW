@@ -5,7 +5,7 @@ block content
     h3 Información Personal
 
   form.form-horizontal(action='/account/profile', method='POST')
-    //- input(type='hidden', name='_csrf', value=_csrf)
+    input(type='hidden', name='_csrf', value=_csrf)
     .form-group
       label.col-sm-3.control-label(for='apell_pat') Apellido Paterno
       .col-sm-7
@@ -104,7 +104,103 @@ block content
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
             i.fas.fa-pencil-alt.fa-sm
-            | Actualizar Perfil Academico  
+            | Actualizar Perfil Academico
+
+  .page-header
+    h3 Información del Docente 
+
+  form.form-horizontal(action='/account/teacher_information', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label Fecha de ingreso como docente
+      .col-sm-2
+        input.form-control(type='date', name='fech_ingreso', id='fech_ingreso', value=user.fech_ingreso)             
+      label.col-sm-4.control-label ¿Era docente universitario a la entrada en vigencia de la Ley 30220?
+      .col-sm-3
+        label.radio-inline.col-sm-1 
+          input(type='radio', checked=user.sunedu_ley=='Si', name='sunedu_ley', value='Si', data-toggle='radio')
+          span Si
+        label.radio-inline.col-sm-1
+          input(type='radio', checked=user.sunedu_ley=='No', name='sunedu_ley', value='No', data-toggle='radio')
+          span No
+    .form-group
+      label.col-sm-3.control-label Niveles de programa de estudio en donde da clases el docente
+      .col-sm-3
+        label.col-sm-6.control-label Pregrado
+        label.radio-inline.col-sm-1 
+          input(type='radio', checked=user.pregrado=='Si', name='pregrado', value='Si', data-toggle='radio')
+          span Si
+        label.radio-inline.col-sm-1
+          input(type='radio', checked=user.pregrado=='No', name='pregrado', value='No', data-toggle='radio')
+          span No
+      .col-sm-3
+        label.col-sm-6.control-label Maestría
+        label.radio-inline.col-sm-1 
+          input(type='radio', checked=user.maestria=='Si', name='maestria', value='Si', data-toggle='radio')
+          span Si
+        label.radio-inline.col-sm-1
+          input(type='radio', checked=user.maestria=='No', name='maestria', value='No', data-toggle='radio')
+          span No 
+      .col-sm-3
+        label.col-sm-6.control-label Doctorado
+        label.radio-inline.col-sm-1 
+          input(type='radio', checked=user.doctorado=='Si', name='doctorado', value='Si', data-toggle='radio')
+          span Si
+        label.radio-inline.col-sm-1
+          input(type='radio', checked=user.doctorado=='No', name='doctorado', value='No', data-toggle='radio')
+          span No
+    .form-group
+      label.col-sm-3.control-label(for='categoria') Categoría del docente
+      .col-sm-3
+        select.form-control(name='categoria')
+          option(value="-" disabled selected) Seleccionar una opción
+          option(value="Ordinario asociado") Ordinario asociado
+          option(value="Ordinario principal") Ordinario principal
+          option(value="Ordinario auxiliar") Ordinario auxiliar
+      label.col-sm-3.control-label(for='regimen_dedicacion') Regimen de dedicación
+      .col-sm-3
+        select.form-control(name='regimen_dedicacion')
+          option(value="-" disabled selected) Seleccionar una opción
+          option(value="Tiempo parcial") Tiempo parcial
+          option(value="Tiempo completo") Tiempo completo
+          option(value="Dedicacion exclusiva") Dedicacion exclusiva
+    .form-group
+      label.col-sm-3.control-label(for='horas_semanales') Número de horas semanales fijados por: 
+      //- label.col-sm-1.control-label Clases 
+      //- .col-sm-2
+      //-   input.form-control(type='number', name='horas_semanales', id='horas_semanales', value=user.horas_semanales)
+      //- label.col-sm-1.control-label Otras actividades 
+      //- .col-sm-2
+      //-   input.form-control(type='number', name='horas_semanales', id='horas_semanales', value=user.horas_semanales)
+      label.col-sm-1.control-label Total
+      .col-sm-2
+        input.form-control(type='number', name='horas_semanales', id='horas_semanales', value=user.horas_semanales)    
+    .form-group
+      label.col-sm-3.control-label ¿Es docente investigador?
+      .col-sm-2
+        label.radio-inline.col-sm-1 
+          input(type='radio', checked=user.investigador=='Si', name='investigador', value='Si', data-toggle='radio')
+          span Si
+        label.radio-inline.col-sm-1
+          input(type='radio', checked=user.investigador=='No', name='investigador', value='No', data-toggle='radio')
+          span No
+      label.col-sm-3.control-label ¿Esta registrado en DINA?
+      .col-sm-2
+        label.radio-inline.col-sm-1 
+          input(type='radio', checked=user.dina=='Si', name='dina', value='Si', data-toggle='radio')
+          span Si
+        label.radio-inline.col-sm-1
+          input(type='radio', checked=user.dina=='No', name='dina', value='No', data-toggle='radio')
+          span No    
+    .form-group
+      label.col-sm-3.control-label(for='per_academico') Periodo académico
+      .col-sm-4
+        input.form-control(type='text', name='per_academico', id='per_academico', value=user.per_academico)
+    .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn.btn-primary(type='submit')
+            i.fas.fa-pencil-alt.fa-sm
+            | Actualizar Información del Docente
 
   .page-header
     h3 Cambiar contraseña
