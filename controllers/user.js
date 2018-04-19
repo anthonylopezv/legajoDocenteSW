@@ -98,16 +98,35 @@ exports.getAccount = function(req, res) {
 exports.postUpdateProfile = function(req, res) {
   req.assert('email', 'Email is not valid').isEmail();
   UserRepo.changeProfileData(req.user.id, req.body)
-    .then(function() {
+    .then(function(data) {
+      console.log(data);
+      
       req.flash('success', { msg: 'Profile information updated.' });
       res.redirect('/account');
     })
     .catch(function(err) {
+      console.log(err);
+      
       req.flash('errors', { msg: err });
       res.redirect('/account');
     });
-    console.log("********************************************************");
-    console.log(req.body);
+};
+
+exports.postUpdateAcademicProfile = function(req, res) {
+  req.assert('email', 'Email is not valid').isEmail();
+  UserRepo.changeAcademicProfileData(req.user.id, req.body)
+    .then(function(data) {
+      console.log(data);
+      
+      req.flash('success', { msg: 'Academic Profile information updated.' });
+      res.redirect('/account');
+    })
+    .catch(function(err) {
+      console.log(err);
+      
+      req.flash('errors', { msg: err });
+      res.redirect('/account');
+    });
 };
 
 exports.postUpdatePassword = function(req, res) {

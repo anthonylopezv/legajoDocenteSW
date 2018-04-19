@@ -63,7 +63,7 @@ module.exports = function(db, DataTypes) {
     tipo_document: DataTypes.STRING,
     nro_document: DataTypes.INTEGER,
     codigo: DataTypes.STRING,
-    telefono:DataTypes.INTEGER,
+    telefono: DataTypes.INTEGER,
     celular: DataTypes.INTEGER,
     email: {
       type: DataTypes.STRING,
@@ -98,8 +98,8 @@ module.exports = function(db, DataTypes) {
     categoria: DataTypes.STRING,
     regimen_dedicacion: DataTypes.STRING,
     horas_semanales: DataTypes.INTEGER,
-    investigador:DataTypes.STRING(2),
-    dina:DataTypes.STRING(2),
+    investigador: DataTypes.STRING(2),
+    dina: DataTypes.STRING(2),
     per_academico: DataTypes.STRING,
     //fin informacion del docente
 
@@ -160,31 +160,11 @@ module.exports = function(db, DataTypes) {
       beforeCreate: beforeSaveHook
     },
     indexes: [
-      // {
-      //   name: 'facebookIdIndex',
-      //   method: 'BTREE',
-      //   fields: ['facebookId']
-      // },
-      // {
-      //   name: 'googleIdIndex',
-      //   method: 'BTREE',
-      //   fields: ['googleId']
-      // },
-      // {
-      //   name: 'twitterIdIndex',
-      //   method: 'BTREE',
-      //   fields: ['twitterId']
-      // },
       {
         name: 'linkedInIdIndex',
         method: 'BTREE',
         fields: ['linkedInId']
-      },
-      // {
-      //   name: 'githubIdIndex',
-      //   method: 'BTREE',
-      //   fields: ['githubId']
-      // }
+      }
     ]
   });
 
