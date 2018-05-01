@@ -36,8 +36,11 @@ repo.getUserById = function(id) {
 repo.createUser = function(user) {
   return db.User.count({ where: { email: user.email } })
     .then(function(c) {
-      if (c > 0)
-        throw 'Account with that email address already exists.';
+      if (c > 0) {
+        return res.status(409).json({
+          message: "La cuenta con esa dirección de correo electrónico ya existe"
+        });
+      }
 
       var dbUser = db.User.build(user);
 
@@ -101,6 +104,10 @@ repo.changeAcademicProfileData = function(userId, reqBody) {
 
       return user.save();
     });
+};
+
+repo.getProfileData = function(userId, reqBody) {
+  return db.User.findById(userId)
 };
 
 repo.changeTeacherInformationData = function(userId, reqBody) {

@@ -35,6 +35,7 @@ dotenv.load({ path: '.env' });
  */
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
+const apiUserController = require('./controllers/apiUser');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 
@@ -142,17 +143,32 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  */
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
+
 app.post('/login', userController.postLogin);
+//api login
+app.post('/api/login', apiUserController.apiPostLogin);
+
 app.get('/logout', userController.logout);
+//api logout
+app.get('/api/logout', apiUserController.apiLogout);
+
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);
 app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
+
 app.post('/signup', userController.postSignup);
+//api signup 
+app.post('/api/signup', apiUserController.apiPostSignup);
+
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
+
 app.get('/account', passportConf.isAuthenticated, userController.getAccount);
+//api perfil
+app.get('/api/account', passportConf.isAuthenticated, apiUserController.getApiAccount);
+
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/academic_profile', passportConf.isAuthenticated, userController.postUpdateAcademicProfile);
 app.post('/account/teacher_information', passportConf.isAuthenticated, userController.postUpdateTeacherInformation);
