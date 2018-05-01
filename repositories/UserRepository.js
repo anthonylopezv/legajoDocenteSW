@@ -93,7 +93,49 @@ repo.changeProfileData = function(userId, reqBody) {
     });
 };
 
+repo.apiChangeProfileData = function(userId, reqBody) {
+  return db.User.findById(userId)
+    .then((user) => {
+      user.email = reqBody.email || user.email;
+      user.nombres = reqBody.nombres || user.nombres;
+      user.apell_pat = reqBody.apell_pat || user.apell_pat;
+      user.apell_mat = reqBody.apell_mat || user.apell_mat;
+      user.genero = reqBody.genero || user.genero;
+      user.pais = reqBody.pais || user.pais;
+      user.pag_web = reqBody.pag_web || user.pag_web;
+      user.tipo_document = reqBody.tipo_document || user.tipo_document;
+      user.nro_document = reqBody.nro_document || user.nro_document;
+      user.telefono = reqBody.telefono || user.telefono;
+      user.celular = reqBody.celular || user.celular;
+      user.set('profile', user.profile);
+
+      if(user.changed('email')) {
+        return db.User.count({ where: { email: user.email } })
+          .then(function(c) {
+            if(c > 0)
+              throw 'Cannot change e-mail address, because address ' + user.email + ' already exists';
+
+            return user.save();
+          });
+      }
+      return user.save();
+    });
+};
+
 repo.changeAcademicProfileData = function(userId, reqBody) {
+  return db.User.findById(userId)
+    .then((user) => {
+      user.mayor_grado = reqBody.mayor_grado || user.mayor_grado;
+      user.menc_grado = reqBody.menc_grado || user.menc_grado;
+      user.universidad = reqBody.universidad || user.universidad;
+      user.pais_grado = reqBody.pais_grado || user.pais_grado;
+      user.cv = reqBody.cv || user.cv;
+
+      return user.save();
+    });
+};
+
+repo.apiChangeAcademicProfileData = function(userId, reqBody) {
   return db.User.findById(userId)
     .then((user) => {
       user.mayor_grado = reqBody.mayor_grado || user.mayor_grado;
@@ -111,6 +153,25 @@ repo.getProfileData = function(userId, reqBody) {
 };
 
 repo.changeTeacherInformationData = function(userId, reqBody) {
+  return db.User.findById(userId)
+    .then((user) => {
+      user.fech_ingreso = reqBody.fech_ingreso || user.fech_ingreso;
+      user.sunedu_ley = reqBody.sunedu_ley || user.sunedu_ley;
+      user.pregrado = reqBody.pregrado || user.pregrado;
+      user.maestria = reqBody.maestria || user.maestria;
+      user.doctorado = reqBody.doctorado || user.doctorado;
+      user.categoria = reqBody.categoria || user.categoria;
+      user.regimen_dedicacion = reqBody.regimen_dedicacion || user.regimen_dedicacion;
+      user.horas_semanales = reqBody.horas_semanales || user.horas_semanales;
+      user.investigador = reqBody.investigador || user.investigador;
+      user.dina = reqBody.dina || user.dina;
+      user.per_academico = reqBody.per_academico || user.per_academico;
+
+      return user.save();
+    });
+};
+
+repo.apiChangeTeacherInformationData = function(userId, reqBody) {
   return db.User.findById(userId)
     .then((user) => {
       user.fech_ingreso = reqBody.fech_ingreso || user.fech_ingreso;

@@ -106,3 +106,62 @@ exports.getApiAccount = function(req, res) {
       });
     })
 };
+
+exports.apiPutUpdateProfile = function(req, res) {
+  req.assert('email', 'Email is not valid').isEmail();
+  UserRepo.apiChangeProfileData(req.user.id, req.body)
+    .then(function(data) {
+      console.log(data);
+      res.status(201).json({
+        error: false,
+        data: data
+      });
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.status(500).json({
+        error: true,
+        data: [],
+        error: error
+      });
+    })
+};
+
+exports.apiPutUpdateAcademicProfile = function(req, res) {
+  UserRepo.apiChangeAcademicProfileData(req.user.id, req.body)
+    .then(function(data) {
+      console.log(data);
+      res.status(201).json({
+        error: false,
+        data: data
+      });
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.status(500).json({
+        error: true,
+        data: [],
+        error: error
+      });
+    })
+};
+
+exports.apiPutUpdateTeacherInformation = function(req, res) {
+  req.assert('email', 'Email is not valid').isEmail();
+  UserRepo.apiChangeTeacherInformationData(req.user.id, req.body)
+    .then(function(data) {
+      console.log(data);
+      res.status(201).json({
+        error: false,
+        data: data
+      });
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.status(500).json({
+        error: true,
+        data: [],
+        error: error
+      });
+    })
+};
