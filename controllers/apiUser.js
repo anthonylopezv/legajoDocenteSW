@@ -38,7 +38,7 @@ exports.apiPostLogin = function(req, res, next) {
       });
       delete req.session.returnTo;
       console.log(req.session);
-      res.redirect(req.session.returnTo || '/');
+      res.redirect(req.session.returnTo);
     });
   })(req, res, next);
 };
