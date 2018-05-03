@@ -43,7 +43,7 @@ exports.apiPostLogin = function(req, res, next) {
   })(req, res, next);
 };
 
-exports.apiLogout = function(req, res) {
+exports.apiLogout = function(req, res, next) {
   req.logout();
   res.locals.user = null;
   res.status(200).json({
@@ -88,7 +88,7 @@ exports.apiPostSignup = function(req, res, next) {
     });
 };
 
-exports.getApiAccount = function(req, res) {
+exports.getApiAccount = function(req, res, next) {
   UserRepo.getProfileData(req.user.id)
     .then(function(data) {
       console.log(data);
@@ -107,7 +107,7 @@ exports.getApiAccount = function(req, res) {
     })
 };
 
-exports.apiPutUpdateProfile = function(req, res) {
+exports.apiPutUpdateProfile = function(req, res, next) {
   req.assert('email', 'Email is not valid').isEmail();
   UserRepo.apiChangeProfileData(req.user.id, req.body)
     .then(function(data) {
@@ -127,7 +127,7 @@ exports.apiPutUpdateProfile = function(req, res) {
     })
 };
 
-exports.apiPutUpdateAcademicProfile = function(req, res) {
+exports.apiPutUpdateAcademicProfile = function(req, res, next) {
   UserRepo.apiChangeAcademicProfileData(req.user.id, req.body)
     .then(function(data) {
       console.log(data);
@@ -146,7 +146,7 @@ exports.apiPutUpdateAcademicProfile = function(req, res) {
     })
 };
 
-exports.apiPutUpdateTeacherInformation = function(req, res) {
+exports.apiPutUpdateTeacherInformation = function(req, res, next) {
   req.assert('email', 'Email is not valid').isEmail();
   UserRepo.apiChangeTeacherInformationData(req.user.id, req.body)
     .then(function(data) {
