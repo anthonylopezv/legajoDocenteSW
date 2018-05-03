@@ -36,9 +36,9 @@ exports.apiPostLogin = function(req, res, next) {
       res.status(200).json({
         message: "Inicio de sesión correcto"
       });
-      delete req.session.returnTo;
-      console.log(req.session);
-      res.redirect(req.session.returnTo);
+      // delete req.session.returnTo;
+      // console.log(req.session);
+      // res.redirect(req.session.returnTo);
     });
   })(req, res, next);
 };
