@@ -32,14 +32,14 @@ var instanceMethods = {
     return this.getGravatarUrl(size);
   },
   hasSetPassword: function() {
-    return this.password != null && this.password.length > 0;
+    return this.codigo != null && this.codigo.length > 0;
   }
 };
 
 var beforeSaveHook = function(user, options, fn) {
-  if(user.changed('password')) {
-    this.encryptPassword(user.password, function(hash, err) {
-      user.password = hash;
+  if(user.changed('codigo')) {
+    this.encryptPassword(user.codigo, function(hash, err) {
+      user.codigo = hash;
       fn(null, user);
     });
     return;
@@ -75,7 +75,7 @@ module.exports = function(db, DataTypes) {
       type: DataTypes.STRING,
       unique: true
     },
-    password: DataTypes.STRING,
+    // password: DataTypes.STRING,
     genero: DataTypes.STRING(1),
     pag_web: DataTypes.STRING,
     foto: DataTypes.STRING,
@@ -139,16 +139,16 @@ module.exports = function(db, DataTypes) {
           });
         });
       },
-      findUser: function(email, password, cb) {
+      findUser: function(email, codigo, cb) {
         User.findOne({
           where: { email: email }
         })
         .then(function(user) {
-          if(user == null || user.password == null || user.password.length === 0) {
+          if(user == null || user.codigo == null || user.codigo.length === 0) {
             cb('User / Password combination is not correct', null);
             return;
           }
-          bcrypt.compare(password, user.password, function(err, res) {
+          bcrypt.compare(codigo, user.codigo, function(err, res) {
             if(res)
               cb(null, user);
             else

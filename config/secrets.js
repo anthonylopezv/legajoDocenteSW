@@ -25,10 +25,19 @@ module.exports = {
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
 
   //will be generated. Take a look at the bottom of this file
+  // postgres: {
+  //   username: "xtgmbmry",
+  //   password: "o22aNW_UK2_opuG1CwvlU-4wxyp5GwIP",
+  //   database: "xtgmbmry",
+  //   host: "localhost",
+  //   port: 5432,
+  //   dialect: "postgres",
+  //   schema: "public"
+  // },
   postgres: {
-    username: "xtgmbmry",
-    password: "o22aNW_UK2_opuG1CwvlU-4wxyp5GwIP",
-    database: "xtgmbmry",
+    username: "postgres",
+    password: "postgres",
+    database: "tcs2",
     host: "localhost",
     port: 5432,
     dialect: "postgres",
