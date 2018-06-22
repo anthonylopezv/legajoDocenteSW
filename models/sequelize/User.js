@@ -95,9 +95,9 @@ module.exports = function(db, DataTypes) {
     fech_ingreso: DataTypes.DATE,
     sunedu_ley: DataTypes.STRING(2),
     // nivel_programa: DataTypes.STRING,
-    pregrado: DataTypes.STRING(2),
-    maestria: DataTypes.STRING(2),
-    doctorado: DataTypes.STRING(2),
+    // pregrado: DataTypes.STRING(2),
+    // maestria: DataTypes.STRING(2),
+    // doctorado: DataTypes.STRING(2),
     categoria: DataTypes.STRING,
     regimen_dedicacion: DataTypes.STRING,
     horas_semanales: DataTypes.INTEGER,
@@ -119,21 +119,25 @@ module.exports = function(db, DataTypes) {
     profile: DataTypes.JSON,
     tokens: DataTypes.JSON
   }, {
+    // timestamps: false,
+    // paranoid: false,
+    // underscored: false,
+    freezeTableName: true,
     tableName: 'docente',
     instanceMethods: instanceMethods,
     classMethods: {
       associate: function(models) {
         //User.hasMany(models.Role);
       },
-      encryptPassword: function(password, cb) {
-        if (!password) {
+      encryptPassword: function(codigo, cb) {
+        if (!codigo) {
           cb('', null);
           return;
         }
 
         bcrypt.genSalt(10, function(err, salt) {
           if (err) { cb(null, err); return; }
-          bcrypt.hash(password, salt, null, function(hErr, hash) {
+          bcrypt.hash(codigo, salt, null, function(hErr, hash) {
             if (hErr) { cb(null, hErr); return; }
             cb(hash, null);
           });

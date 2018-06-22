@@ -37,12 +37,22 @@ module.exports = {
   postgres: {
     username: "postgres",
     password: "postgres",
-    database: "tcs2",
+    database: "jashir",
     host: "localhost",
     port: 5432,
     dialect: "postgres",
     schema: "public"
   },
+
+  // postgres: {
+  //   username: "postgres",
+  //   password: "postgres",
+  //   database: "tcs2",
+  //   host: "localhost",
+  //   port: 5432,
+  //   dialect: "postgres",
+  //   schema: "public"
+  // },
   sessionTable: 'session',
   googleAnalyticsCode: process.env.GOOGLE_ANALYTICS_CODE || null,
 

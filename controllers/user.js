@@ -86,6 +86,7 @@ exports.postSignup = function(req, res, next) {
       });
     })
     .catch(function(err) {
+      console.log(err)
       req.flash('errors', { msg: err });
       return res.redirect('/login');
     });

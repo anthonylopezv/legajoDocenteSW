@@ -32,6 +32,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, codig
   email = email.toLowerCase();
   db.User.findUser(email, codigo, function(err, user) {
     if(err)
+      console.log(err);
       return done(err, null);
     return done(null, user);
   });
