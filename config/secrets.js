@@ -119,8 +119,7 @@ module.exports = {
   linkedin: {
     clientID: process.env.LINKEDIN_ID || '77dzwfmn4n110p',
     clientSecret: process.env.LINKEDIN_SECRET || 'MXbEzGWQg4FcWTeG',
-    callbackURL: process.env.LINKEDIN_CALLBACK_URL || 'http://fisitcsld.herokuapp.com/auth/linkedin/callback',
-    // callbackURL: process.env.LINKEDIN_CALLBACK_URL || 'http://localhost:3000/auth/linkedin/callback',
+    callbackURL: process.env.LINKEDIN_CALLBACK_URL || 'https://fisitcsld.herokuapp.com/auth/linkedin/callback',
     scope: ['r_basicprofile', 'r_emailaddress'],
     passReqToCallback: true,
     enableProof: true,
