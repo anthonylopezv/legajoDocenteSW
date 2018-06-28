@@ -85,11 +85,13 @@ repo.changeProfileData = function(userId, reqBody) {
       user.apell_mat = reqBody.apell_mat || user.apell_mat;
       user.genero = reqBody.genero || user.genero;
       user.pais = reqBody.pais || user.pais;
+      user.codigo = reqBody.codigo ||user.codigo;
       user.pag_web = reqBody.pag_web || user.pag_web;
       user.tipo_document = reqBody.tipo_document || user.tipo_document;
       user.nro_document = reqBody.nro_document || user.nro_document;
       user.telefono = reqBody.telefono || user.telefono;
       user.celular = reqBody.celular || user.celular;
+      user.foto = reqBody.foto || user.foto;
       user.set('profile', user.profile);
 
       if(user.changed('email')) {

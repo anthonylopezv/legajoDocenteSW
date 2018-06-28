@@ -28,8 +28,8 @@
         else
           li.dropdown(class=(title === 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
-              if user.profile.picture
-                img(src=user.profile.picture)
+              if user.foto
+                img(src=user.foto style='height: 55px;width: 44px;')
               else
                 img(src=user.getProfilePicture(60))
               span= user.profile.name || user.email || user.id

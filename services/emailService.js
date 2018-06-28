@@ -15,7 +15,7 @@ service.sendRequestPasswordEmail = function(email, host, token, done) {
     subject: 'Restablece tu contraseña en ' + applicationName,
     text: 'Está recibiendo este correo electrónico porque usted ha solicitado que se restablezca la contraseña de su cuenta.\n\n' +
     'Haga clic en el siguiente enlace o pegue esto en su navegador para completar el proceso:\n\n' +
-    'http://' + host + '/recuperar/password/' + token + '\n\n' +
+    'https://' + host + '/recuperar/password/' + token + '\n\n' +
     'Si no lo solicitó, ignore este correo electrónico y su contraseña no cambiará.\n'
   };
 
@@ -28,7 +28,7 @@ service.sendRequestVerifiedEmail = function(email, host, token, done) {
     from: senderAddress,
     subject: 'Confirma tu cuenta en ' + applicationName,
     text: `¡Gracias por registrarte con SIGAP - Legajo Docente FISI! Debes seguir este enlace para verificar tu cuenta:\n\n
-              http://${host}/cuenta/verificar/${token}\n\n
+              https://${host}/cuenta/verificar/${token}\n\n
               Gracias.\n`
     // text: 'You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n' +
     // 'Please click on the following link, or paste this into your browser to complete the process:\n\n' +

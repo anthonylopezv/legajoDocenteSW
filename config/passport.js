@@ -143,7 +143,7 @@ passport.use(new LinkedInStrategy(secrets.linkedin, function(req, accessToken, r
   if (req.user) {
     UserRepo.linkLinkedInProfile(req.user.id, accessToken, refreshToken, profile)
       .then(function(user) {
-        req.flash('info', { msg: 'LinkedIn account has been linked.' });
+        req.flash('info', { msg: 'La cuenta de LinkedIn ha sido vinculada.' });
         done(null, user);
       })
       .catch(function(err) {

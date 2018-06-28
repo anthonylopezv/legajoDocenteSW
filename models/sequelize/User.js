@@ -82,7 +82,10 @@ module.exports = function(db, DataTypes) {
     password: DataTypes.STRING,
     genero: DataTypes.STRING(1),
     pag_web: DataTypes.STRING,
-    foto: DataTypes.STRING,
+    foto: {
+      type: DataTypes.STRING,
+      defaultValue: 'http://res.cloudinary.com/dft8lq2m7/image/upload/v1524686469/user2.png'
+    },  
     fecha_nac: DataTypes.DATE,
     direccion: DataTypes.STRING,
     //fin informacion personal

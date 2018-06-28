@@ -9,17 +9,17 @@ block content
     .form-group
       label.col-sm-3.control-label(for='apell_pat') Apellido Paterno
       .col-sm-7
-        input.form-control(type='text', name='apell_pat', id='apell_pat', value=user.apell_pat)
+        input.form-control(type='text', name='apell_pat', pattern='[/^\s*([\pL\w\s]+)\s*,\s*([\pL\w\s-]+)\s*$/u]{4,}',title="Formato no válido",minlength="4", maxlength="20", id='apell_pat', value=user.apell_pat)
     .form-group
       label.col-sm-3.control-label(for='apell_mat') Apellido Materno
       .col-sm-7
-        input.form-control(type='text', name='apell_mat', id='apell_mat', value=user.apell_mat)         
+        input.form-control(type='text', name='apell_mat', pattern='[/^\s*([\pL\w\s]+)\s*,\s*([\pL\w\s-]+)\s*$/u]{4,}',title="Formato no válido",minlength="4", maxlength="20", id='apell_mat', value=user.apell_mat)         
     .form-group
       label.col-sm-3.control-label(for='nombres') Nombres
       .col-sm-7
-        input.form-control(type='text', name='nombres', id='nombres', value=user.nombres)
+        input.form-control(type='text', name='nombres', pattern='[/^\s*([\pL\w\s]+)\s*,\s*([\pL\w\s-]+)\s*$/u]{3,}',title="Formato no válido",minlength="3", maxlength="30", id='nombres', value=user.nombres)
     .form-group
-      label.col-sm-3.control-label Genero
+      label.col-sm-3.control-label Género
       .col-sm-6
         label.radio.col-sm-3
           input(type='radio', checked=user.genero=='M', name='genero', value='M', data-toggle='radio')
@@ -34,11 +34,15 @@ block content
     .form-group
       label.col-sm-3.control-label(for='pais') Nacionalidad
       .col-sm-7
-        input.form-control(type='text', name='pais', id='pais', value=user.pais)
+        input.form-control(type='text',list='l1' name='pais', id='pais', value=user.pais,minlength="4", maxlength="7", pattern='[Pp]er[uú]|[Mm][eé]xico|[Ee]spaña')
+        datalist#l1
+          option Perú
+          option México
+          option España
     .form-group
       label.col-sm-3.control-label(for='pais') Código institucional
       .col-sm-7
-        input.form-control(type='Number', name='codigo', id='codigo', value=user.codigo)    
+        input.form-control(type='text', name='codigo',maxlength="8", pattern='[0-9]{8}',title="Formato: solo puede ingresar 8 dígitos" id='codigo', value=user.codigo)    
     .form-group
       label.col-sm-3.control-label Tipo de Documento
       .col-sm-4
@@ -50,7 +54,7 @@ block content
           span C.E
       label.col-sm-1.control-label Nro. de Documento
       .col-sm-2
-        input.form-control(type='number', name='nro_document', id='nro_document', value=user.nro_document)
+        input.form-control(type='text', name='nro_document', maxlength="8", pattern='[0-9]{8}',title="Formato: solo puede ingresar 8 dígitos", id='nro_document', value=user.nro_document)
     .form-group
       label.col-sm-3.control-label(for='pag_web') Página web
       .col-sm-7
@@ -58,15 +62,25 @@ block content
     .form-group
       label.col-sm-3.control-label(for='pag_web') Teléfono
       .col-sm-7
-        input.form-control(type='number', name='telefono', id='telefono', value=user.telefono)
+        input.form-control(type='text', name='telefono',maxlength="8", pattern='[0-9]{7}',title="Formato: solo puede ingresar 7 dígitos", id='telefono', value=user.telefono)
     .form-group
       label.col-sm-3.control-label(for='pag_web') Celular
       .col-sm-7
-        input.form-control(type='number', name='celular', id='celular', value=user.celular)
+        input.form-control(type='text', name='celular',maxlength="8", pattern='[0-9]{9}',title="Formato: solo puede ingresar 9 dígitos", id='celular', value=user.celular)
     .form-group
       label.col-sm-3.control-label Foto
+      .col-sm-1
+        a#uploadphoto.btn.btn-success 
+          | Cambiar Foto
+      //- input#photolink(type="hidden" name="photo" value=user.photo)  
+      //- img#photoactual.img-responsive(src=user.photo, width='180', height='250')
       .col-sm-4
-        img(src=user.getProfilePicture(), class='profile', width='100', height='100')
+        //- img(src=user.getProfilePicture(), class='profile', width='100', height='100')
+        input#photolink(type="hidden" name="foto" value=user.foto)
+        if user.foto  
+          img#photoactual.img-responsive(style='margin-left: 42px;', src=user.foto, width='180', height='250')
+        else
+          img#photoactual.img-responsive(style='margin-left: 42px;', src=user.getProfilePicture(), width='180', height='250')  
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
@@ -81,8 +95,11 @@ block content
     .form-group
       label.col-sm-3.control-label(for='mayor_grado') Mayor grado académico del docente
       .col-sm-7
-        select.form-control(name='mayor_grado' value=user.mayor_grado)
-          option(value=user.mayor_grado disabled selected) #{user.mayor_grado}
+        select.form-control(name='mayor_grado', value=user.mayor_grado)
+          if (user.mayor_grado)
+            option(value=user.mayor_grado disabled selected) #{user.mayor_grado}
+          else
+            option(value='' disabled selected) Seleccione una opción  
           option(value="Bachiller") Bachiller
           option(value="Licenciado") Licenciado
           option(value="Titulado") Titulado
@@ -91,15 +108,15 @@ block content
     .form-group
       label.col-sm-3.control-label(for='menc_grado') Mención del mayor grado académico
       .col-sm-7
-        input.form-control(type='text', name='menc_grado', id='menc_grado', value=user.menc_grado)
+        input.form-control(type='text', name='menc_grado',minlength="2", maxlength="60" placeholder='Ejemplo: Ingeniería de Sistemas' id='menc_grado', value=user.menc_grado)
     .form-group
       label.col-sm-3.control-label(for='universidad') Universidad que otorgo el mayor grado
       .col-sm-7
-        input.form-control(type='text', name='universidad', id='universidad', value=user.universidad)
+        input.form-control(type='text', name='universidad',minlength="2", maxlength="60" id='universidad',placeholder="Ejemplo: UNMSM" value=user.universidad)
     .form-group
       label.col-sm-3.control-label(for='pais_grado') País de la universidad que otorgo el mayor grado 
       .col-sm-7
-        input.form-control(type='text', name='pais_grado', id='pais_grado', value=user.pais_grado)    
+        input.form-control(type='text', name='pais_grado',minlength="2", maxlength="60" id='pais_grado',placeholder="Ejemplo: Perú" value=user.pais_grado)    
     .form-group
       label.col-sm-3.control-label(for='cv') Adjuntar Curriculum Vitae
       .col-sm-7
@@ -108,7 +125,7 @@ block content
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
             i.fas.fa-pencil-alt.fa-sm
-            | Actualizar Perfil Academico
+            | Actualizar Perfil Académico
 
   .page-header
     h3 Información del Docente 
@@ -118,7 +135,7 @@ block content
     .form-group
       label.col-sm-3.control-label Fecha de ingreso como docente
       .col-sm-2
-        input.form-control(type='date', name='fech_ingreso', id='fech_ingreso', value=moment(user.fech_ingreso).add(1, 'd').format('YYYY-MM-DD'))             
+        input.form-control(type='date', name='fech_ingreso', id='fech_ingreso', value=moment(user.fech_ingreso).add(1, 'd').format('YYYY-MM-DD'), min="1976-01-01", max="2013-12-30")             
       label.col-sm-4.control-label ¿Era docente universitario a la entrada en vigencia de la Ley 30220?
       .col-sm-3
         label.radio-inline.col-sm-1 
@@ -157,14 +174,20 @@ block content
       label.col-sm-3.control-label(for='categoria') Categoría del docente
       .col-sm-3
         select.form-control(name='categoria' value=user.categoria)
-          option(value=user.categoria disabled selected) #{user.categoria}
+          if (user.categoria)
+            option(value=user.categoria disabled selected) #{user.categoria}
+          else
+            option(value='' disabled selected) Seleccione una opción 
           option(value="Ordinario asociado") Ordinario asociado
           option(value="Ordinario principal") Ordinario principal
           option(value="Ordinario auxiliar") Ordinario auxiliar
       label.col-sm-3.control-label(for='regimen_dedicacion') Regimen de dedicación
       .col-sm-3
         select.form-control(name='regimen_dedicacion' value=user.regimen_dedicacion)
-          option(value=user.regimen_dedicacion disabled selected) #{user.regimen_dedicacion}
+          if (user.regimen_dedicacion)
+            option(value=user.regimen_dedicacion disabled selected) #{user.regimen_dedicacion}
+          else
+            option(value='' disabled selected) Seleccione una opción 
           option(value="Tiempo parcial") Tiempo parcial
           option(value="Tiempo completo") Tiempo completo
           option(value="Dedicacion exclusiva") Dedicacion exclusiva
@@ -178,7 +201,7 @@ block content
       //-   input.form-control(type='number', name='horas_semanales', id='horas_semanales', value=user.horas_semanales)
       label.col-sm-1.control-label Total
       .col-sm-2
-        input.form-control(type='number', name='horas_semanales', id='horas_semanales', value=user.horas_semanales)    
+        input.form-control(type='number', name='horas_semanales',min='1', max='20' id='horas_semanales', value=user.horas_semanales)    
     .form-group
       label.col-sm-3.control-label ¿Es docente investigador?
       .col-sm-2
@@ -199,7 +222,14 @@ block content
     .form-group
       label.col-sm-3.control-label(for='per_academico') Periodo académico
       .col-sm-4
-        input.form-control(type='text', name='per_academico', id='per_academico', value=user.per_academico)
+        select.form-control(name='per_academico' value=user.per_academico)
+          if (user.per_academico)
+            option(value=user.per_academico disabled selected) #{user.per_academico}
+          else
+            option(value='' disabled selected) Seleccione una opción 
+          option(value="2018-I") 2018-I
+          option(value="2018-0") 2018-0
+          option(value="2017-II") 2017-II
     .form-group
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
