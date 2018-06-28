@@ -170,8 +170,8 @@ app.get('/logout', userController.logout);
 
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);
-app.get('/reset/:token', userController.getReset);
-app.post('/reset/:token', userController.postReset);
+app.get('/recuperar/password/:token', userController.getReset);
+app.post('/recuperar/password/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 
 app.post('/signup', userController.postSignup);

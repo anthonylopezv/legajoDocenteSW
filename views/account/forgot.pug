@@ -2,14 +2,14 @@ extends ../layout
 
 block content
   .col-sm-8.col-sm-offset-2
-    form(method='POST')
-      legend Forgot Password
+    form(action='/forgot', method='POST')
+      legend Se te olvidó tu contraseña
       input(type='hidden', name='_csrf', value=_csrf)
       .form-group
-        p Enter your email address below and we will send you password reset instructions.
-        label.control-label(for='email') Email
-        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, required)
+        p Ingrese su dirección de correo electrónico a continuación y le enviaremos las instrucciones para restablecer su contraseña.
+        label.control-label(for='email') Correo institucional
+        input.form-control(type='email', name='email', id='email', maxLength="50", placeholder='nombre.apellido@unmsm.edu.pe', pattern=".+@unmsm.edu.pe", title="Proporcione solo una dirección de correo institucional de UNMSM", autofocus, required)
       .form-group
         button.btn.btn-primary(type='submit')
           i.fas.fa-key.fa-sm
-          | Reset Password
+          | Recuperar contraseña

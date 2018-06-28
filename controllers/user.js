@@ -19,13 +19,14 @@ exports.getLogin = function(req, res) {
 };
 
 exports.postLogin = function(req, res, next) {
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password cannot be blank').notEmpty();
+  req.assert('email', 'Correo institucional no valido').isEmail();
+  req.assert('password', 'La contraseña no puede estar en blanco').notEmpty();
 
   var errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
+    console.log(errors)
     return res.redirect('/login');
   }
 
@@ -127,12 +128,12 @@ exports.getAccount = function(req, res) {
 };
 
 exports.postUpdateProfile = function(req, res) {
-  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('email', 'Correo institucional no válido').isEmail();
   UserRepo.changeProfileData(req.user.id, req.body)
     .then(function(data) {
       console.log(data);
       
-      req.flash('success', { msg: 'Profile information updated.' });
+      req.flash('success', { msg: 'Información personal actualizada.' });
       res.redirect('/account');
     })
     .catch(function(err) {
@@ -144,12 +145,12 @@ exports.postUpdateProfile = function(req, res) {
 };
 
 exports.postUpdateAcademicProfile = function(req, res) {
-  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('email', 'Correo institucional no valido').isEmail();
   UserRepo.changeAcademicProfileData(req.user.id, req.body)
     .then(function(data) {
       console.log(data);
       
-      req.flash('success', { msg: 'Academic Profile information updated.' });
+      req.flash('success', { msg: 'Perfil acádemico actualizado.' });
       res.redirect('/account');
     })
     .catch(function(err) {
@@ -161,12 +162,12 @@ exports.postUpdateAcademicProfile = function(req, res) {
 };
 
 exports.postUpdateTeacherInformation = function(req, res) {
-  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('email', 'Correo institucional no válido').isEmail();
   UserRepo.changeTeacherInformationData(req.user.id, req.body)
     .then(function(data) {
       console.log(data);
       
-      req.flash('success', { msg: 'Teacher information updated.' });
+      req.flash('success', { msg: 'Información del docente actualizada.' });
       res.redirect('/account');
     })
     .catch(function(err) {
@@ -178,8 +179,8 @@ exports.postUpdateTeacherInformation = function(req, res) {
 };
 
 exports.postUpdatePassword = function(req, res) {
-  req.assert('password', 'Password must be at least 4 characters long').len(4);
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+  req.assert('password', 'La contraseña debe tener al menos 8 caracteres de largo').len(8);
+  req.assert('confirmPassword', 'Contraseñas no coinciden').equals(req.body.password);
 
   var errors = req.validationErrors();
 
@@ -190,7 +191,7 @@ exports.postUpdatePassword = function(req, res) {
 
   UserRepo.changeUserPassword(req.user.id, req.body.password)
     .then(function() {
-      req.flash('success', { msg: 'Password has been changed.' });
+      req.flash('success', { msg: 'la contraseña ha sido cambiada.' });
       res.redirect('/account');
     })
     .catch(function(err) {
@@ -241,10 +242,10 @@ exports.getReset = function(req, res) {
   UserRepo.findUserByResetPswToken(req.params.token)
     .then(function(user) {
       if(!user)
-        throw 'Password reset request is invalid or has expired.';
+        throw 'La solicitud de restablecimiento de contraseña no es válida o ha expirado.';
 
       res.render('account/reset', {
-        title: 'Password Reset'
+        title: 'Recuperar contraseña'
       });
     })
     .catch(function(err) {
@@ -254,8 +255,8 @@ exports.getReset = function(req, res) {
 };
 
 exports.postReset = function(req, res, next) {
-  req.assert('password', 'Password must be at least 4 characters long.').len(4);
-  req.assert('confirm', 'Passwords must match.').equals(req.body.password);
+  req.assert('password', 'La contraseña debe tener al menos 8 caracteres de largo.').len(8);
+  req.assert('confirm', 'Las contraseñas deben coincidir.').equals(req.body.password);
 
   var errors = req.validationErrors();
 
@@ -277,7 +278,7 @@ exports.postReset = function(req, res, next) {
     function(user, done) {
       emailService.sendPasswordChangeNotificationEmail(user.email, function(err) {
         req.flash('info', {
-          msg: 'Password has been successfully changed. Notification e-mail has been sent to ' + user.email + ' to inform about this fact.'
+          msg: 'La contraseña ha sido modificada con éxito. El correo electrónico de notificación ha sido enviado a ' + user.email + ' para informar sobre este hecho.'
         });
         done(err, 'done');
       });
@@ -300,7 +301,7 @@ exports.getForgot = function(req, res) {
 exports.postForgot = function(req, res, next) {
   crypto = require('crypto');
 
-  req.assert('email', 'Please enter a valid email address.').isEmail();
+  req.assert('email', 'Por favor, introduce una dirección de correo electrónico válida.').isEmail();
   var errors = req.validationErrors();
 
   if (errors) {
@@ -328,7 +329,7 @@ exports.postForgot = function(req, res, next) {
     },
     function(token, user, done) {
       emailService.sendRequestPasswordEmail(user.email, req.headers.host, token, function(err) {
-        req.flash('info', { msg: 'An e-mail has been sent to ' + user.email + ' with further instructions.' });
+        req.flash('info', { msg: 'Se ha enviado un correo electrónico a ' + user.email + ' con  mas instrucciones.' });
         done(err, 'done');
       });
     }

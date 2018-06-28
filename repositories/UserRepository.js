@@ -234,7 +234,7 @@ repo.changeUserPassword = function(userId, newPassword) {
   return db.User.findById(userId)
     .then(function(user) {
       if(!user)
-        throw 'Account not found';
+        throw 'Cuenta no encontrada';
 
       user.password = newPassword;
 
