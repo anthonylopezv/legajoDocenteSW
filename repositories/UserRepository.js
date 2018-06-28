@@ -55,10 +55,22 @@ repo.assignResetPswToken = function(email, token) {
   return db.User.findOne({ where: { email: email } })
     .then(function(user) {
       if(!user)
-        throw 'No account with that email address exists.';
+        throw 'No existe una cuenta con esa dirección de correo electrónico.';
 
       user.resetPasswordToken = token;
       user.resetPasswordExpires = Date.now() + PSW_RESET_TOKEN_VALID_FOR * ONE_HOUR;
+
+      return user.save();
+    });
+};
+
+repo.assignVerifiedToken = function(email, token) {
+  return db.User.findOne({ where: { email: email } })
+    .then(function(user) {
+      if(!user)
+        throw 'No existe una cuenta con esa dirección de correo electrónico.';
+
+      user.verifiedToken = token;
 
       return user.save();
     });
@@ -188,6 +200,21 @@ repo.apiChangeTeacherInformationData = function(userId, reqBody) {
 
       return user.save();
     });
+};
+
+repo.findUserByVerifiedToken = function(token) {
+  return db.User.findOne({
+    where: {
+      verifiedToken: token,
+    }
+  })
+  .then((user) => {
+    if (user.verificado == 0) {
+      user.verificado = 1;
+    }
+    
+    return user.save();
+  })
 };
 
 repo.findUserByResetPswToken = function(token) {

@@ -28,11 +28,10 @@ passport.deserializeUser(function(id, done) {
 /**
  * Sign in using Email and Password.
  */
-passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, codigo, done) {
+passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
   email = email.toLowerCase();
-  db.User.findUser(email, codigo, function(err, user) {
+  db.User.findUser(email, password, function(err, user) {
     if(err)
-      console.log(err);
       return done(err, null);
     return done(null, user);
   });

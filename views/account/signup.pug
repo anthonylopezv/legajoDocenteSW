@@ -6,17 +6,17 @@ block content
   form.form-horizontal(id='signup-form', method='POST' action='/signup')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-      label.col-sm-3.control-label Correo
+      label.col-sm-3.control-label Correo institucional
       .col-sm-7
-        input.form-control(type='email', name='email', id='email', placeholder='Correo institucional', autofocus, required)
+        input.form-control(type='email', name='email', id='email', maxLength="50", placeholder='nombre.apellido@unmsm.edu.pe', pattern=".+@unmsm.edu.pe", title="Proporcione solo una dirección de correo institucional de UNMSM", autofocus, required)
     .form-group
       label.col-sm-3.control-label Contraseña
       .col-sm-7
-        input.form-control(type='password', name='codigo', id='codigo', placeholder='Contraseña', required)
+        input.form-control(type='password', name='password', id='password', placeholder='Contraseña', required)
     .form-group
       label.col-sm-3.control-label Confirmar contraseña
       .col-sm-7
-        input.form-control(type='password', name='confirmCodigo', id='confirmCodigo', placeholder='Confirmar contraseña', required)
+        input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirmar contraseña', required)
     .form-group
       .col-sm-offset-3.col-sm-7
         button.btn.btn-success(type='submit')

@@ -8,11 +8,11 @@ block content
     .form-group
       label.col-sm-3.control-label Correo
       .col-sm-7
-        input.form-control(type='email', name='email', id='email', placeholder='Correo institucional', autofocus, required)
+        input.form-control(type='email', name='email', id='email', placeholder='Correo institucional',pattern=".+@unmsm.edu.pe", minlength="3", maxlength="64",autofocus, required, title='Ingrese una direccion de correo valida')
     .form-group
       label.col-sm-3.control-label Contraseña
       .col-sm-7
-        input.form-control(type='password', name='codigo', id='codigo', placeholder='Contraseña', required)
+        input.form-control(type='password', name='password', id='password', placeholder='Contraseña', required)
     .form-group
       .col-sm-offset-3.col-sm-7
         button.col-sm-3.btn.btn-primary(type='submit')

@@ -1,12 +1,12 @@
 'use strict';
 
 var secrets = require('../config/secrets');
-var mailer = require('sendgrid')(secrets.sendgrid.api_key);
+var mailer = require('sendgrid')(secrets.sendgrid.user, secrets.sendgrid.password);
 
 var service = {};
 
-var applicationName = 'Express Starter';
-var senderAddress = 'Mailing <mailing@starter.com>';
+var applicationName = 'SIGAP - Legajo Docente FISI';
+var senderAddress = 'noreply@sigap.com';
 
 service.sendRequestPasswordEmail = function(email, host, token, done) {
   var mailOptions = {
@@ -17,6 +17,23 @@ service.sendRequestPasswordEmail = function(email, host, token, done) {
     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
     'http://' + host + '/reset/' + token + '\n\n' +
     'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+  };
+
+  mailer.send(mailOptions, done);
+};
+
+service.sendRequestVerifiedEmail = function(email, host, token, done) {
+  var mailOptions = {
+    to: email,
+    from: senderAddress,
+    subject: 'Confirma tu cuenta en ' + applicationName,
+    text: `¡Gracias por registrarte con SIGAP - Legajo Docente FISI! Debes seguir este enlace para verificar tu cuenta:\n\n
+              http://${host}/cuenta/verificar/${token}\n\n
+              Gracias.\n`
+    // text: 'You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n' +
+    // 'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+    // 'http://' + host + '/reset/' + token + '\n\n' +
+    // 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
   };
 
   mailer.send(mailOptions, done);

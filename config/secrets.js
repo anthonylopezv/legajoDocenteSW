@@ -68,7 +68,9 @@ module.exports = {
   },
 
   sendgrid: {
-    api_key: process.env.SENDGRID_APIKEY || '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'
+    api_key: process.env.SENDGRID_APIKEY || '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',
+    user: process.env.SENDGRID_USER || 'anthony.lopez',
+    password: process.env.SENDGRID_PASSWORD || 'pagape2018',
   },
 
   nyt: {

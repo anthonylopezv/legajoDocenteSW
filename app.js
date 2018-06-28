@@ -39,6 +39,9 @@ const apiUserController = require('./controllers/apiUser');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 
+var userMiddleware = require('./config/user');
+
+
 /**
  * API keys and Passport configuration.
  */
@@ -62,10 +65,11 @@ app.locals.moment = require('moment');
 /**
  * Express configuration.
  */
+// app.disable('etag');
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.enable("trust proxy");
+// app.enable("trust proxy");
 app.use(compress());
 app.use(connectAssets({
   paths: [path.join(__dirname, 'public/css'), path.join(__dirname, 'public/js')]
@@ -135,8 +139,6 @@ app.use(function(req, res, next) {
   res.cookie('XSRF-TOKEN', res.locals._csrf, {httpOnly: false});
   next();
 });
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
-
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -150,6 +152,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+
 /**
  * Primary app routes.
  */
@@ -158,11 +162,11 @@ app.get('/login', userController.getLogin);
 
 app.post('/login', userController.postLogin);
 //api login
-app.post('/api/login', apiUserController.apiPostLogin);
+// app.post('/api/login', apiUserController.apiPostLogin);
 
 app.get('/logout', userController.logout);
-//api logout
-app.get('/api/logout', apiUserController.apiLogout);
+// //api logout
+// app.get('/api/logout', apiUserController.apiLogout);
 
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);
@@ -171,27 +175,29 @@ app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 
 app.post('/signup', userController.postSignup);
-//api signup 
-app.post('/api/signup', apiUserController.apiPostSignup);
+app.get('/cuenta/verificar/:token', userController.getCheck)
+
+// //api signup 
+// app.post('/api/signup', apiUserController.apiPostSignup);
 
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 
-app.get('/account', passportConf.isAuthenticated, userController.getAccount);
-//api perfil
-app.get('/api/account', passportConf.isAuthenticated, apiUserController.getApiAccount);
+app.get('/account', passportConf.isAuthenticated, userMiddleware.isVerified, userController.getAccount);
+// //api perfil
+// app.get('/api/account', passportConf.isAuthenticated, apiUserController.getApiAccount);
 
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
-//api update profile
-app.put('/api/account/profile', passportConf.isAuthenticated, apiUserController.apiPutUpdateProfile);
+// //api update profile
+// app.put('/api/account/profile', passportConf.isAuthenticated, apiUserController.apiPutUpdateProfile);
 
 app.post('/account/academic_profile', passportConf.isAuthenticated, userController.postUpdateAcademicProfile);
-//api update academic_profile
-app.put('/api/account/academic_profile', passportConf.isAuthenticated, apiUserController.apiPutUpdateAcademicProfile);
+// //api update academic_profile
+// app.put('/api/account/academic_profile', passportConf.isAuthenticated, apiUserController.apiPutUpdateAcademicProfile);
 
 app.post('/account/teacher_information', passportConf.isAuthenticated, userController.postUpdateTeacherInformation);
-//api update teacher_information
-app.put('/api/account/teacher_information', passportConf.isAuthenticated, apiUserController.apiPutUpdateTeacherInformation);
+// //api update teacher_information
+// app.put('/api/account/teacher_information', passportConf.isAuthenticated, apiUserController.apiPutUpdateTeacherInformation);
 
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.delete('/account', passportConf.isAuthenticated, userController.deleteAccount);
@@ -200,7 +206,7 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
 /**
  * API examples routes.
  */
-app.get('/api', apiController.getApi);
+// app.get('/api', apiController.getApi);
 app.get('/api/lastfm', apiController.getLastfm);
 app.get('/api/nyt', apiController.getNewYorkTimes);
 app.get('/api/aviary', apiController.getAviary);

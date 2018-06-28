@@ -32,14 +32,14 @@ var instanceMethods = {
     return this.getGravatarUrl(size);
   },
   hasSetPassword: function() {
-    return this.codigo != null && this.codigo.length > 0;
+    return this.password != null && this.password.length > 0;
   }
 };
 
 var beforeSaveHook = function(user, options, fn) {
-  if(user.changed('codigo')) {
-    this.encryptPassword(user.codigo, function(hash, err) {
-      user.codigo = hash;
+  if(user.changed('password')) {
+    this.encryptPassword(user.password, function(hash, err) {
+      user.password = hash;
       fn(null, user);
     });
     return;
@@ -54,6 +54,10 @@ module.exports = function(db, DataTypes) {
       autoIncrement: true,
       allowNull: false,
       primaryKey: true
+    },
+    verificado: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     //Informacion Personal
     nombres: DataTypes.STRING,
@@ -75,7 +79,7 @@ module.exports = function(db, DataTypes) {
       type: DataTypes.STRING,
       unique: true
     },
-    // password: DataTypes.STRING,
+    password: DataTypes.STRING,
     genero: DataTypes.STRING(1),
     pag_web: DataTypes.STRING,
     foto: DataTypes.STRING,
@@ -94,10 +98,10 @@ module.exports = function(db, DataTypes) {
     //Informacion del docente
     fech_ingreso: DataTypes.DATE,
     sunedu_ley: DataTypes.STRING(2),
-    // nivel_programa: DataTypes.STRING,
-    // pregrado: DataTypes.STRING(2),
-    // maestria: DataTypes.STRING(2),
-    // doctorado: DataTypes.STRING(2),
+    nivel_programa: DataTypes.STRING,
+    pregrado: DataTypes.STRING(2),
+    maestria: DataTypes.STRING(2),
+    doctorado: DataTypes.STRING(2),
     categoria: DataTypes.STRING,
     regimen_dedicacion: DataTypes.STRING,
     horas_semanales: DataTypes.INTEGER,
@@ -111,6 +115,9 @@ module.exports = function(db, DataTypes) {
 
     resetPasswordExpires: DataTypes.DATE,
     resetPasswordToken: DataTypes.STRING,
+
+    verifiedToken: DataTypes.STRING,
+
     //timestamps
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
@@ -129,30 +136,30 @@ module.exports = function(db, DataTypes) {
       associate: function(models) {
         //User.hasMany(models.Role);
       },
-      encryptPassword: function(codigo, cb) {
-        if (!codigo) {
+      encryptPassword: function(password, cb) {
+        if (!password) {
           cb('', null);
           return;
         }
 
         bcrypt.genSalt(10, function(err, salt) {
           if (err) { cb(null, err); return; }
-          bcrypt.hash(codigo, salt, null, function(hErr, hash) {
+          bcrypt.hash(password, salt, null, function(hErr, hash) {
             if (hErr) { cb(null, hErr); return; }
             cb(hash, null);
           });
         });
       },
-      findUser: function(email, codigo, cb) {
+      findUser: function(email, password, cb) {
         User.findOne({
           where: { email: email }
         })
         .then(function(user) {
-          if(user == null || user.codigo == null || user.codigo.length === 0) {
+          if(user == null || user.password == null || user.password.length === 0) {
             cb('User / Password combination is not correct', null);
             return;
           }
-          bcrypt.compare(codigo, user.codigo, function(err, res) {
+          bcrypt.compare(password, user.password, function(err, res) {
             if(res)
               cb(null, user);
             else
