@@ -5,6 +5,7 @@ var db = require('../models/sequelize');
 exports.isVerified = (req, res, next) => {
   db.User.findOne({
     where: {
+      id: req.user.id,
       verificado: 1,
     }
   })
