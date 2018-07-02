@@ -7,6 +7,7 @@ var passport = require('passport');
 
 var UserRepo = require('../repositories/UserRepository.js');
 var emailService = require('../services/emailService.js');
+var db = require('../models/sequelize');
 
 
 exports.getLogin = function(req, res) {
@@ -122,60 +123,67 @@ exports.postSignup = function(req, res, next) {
 };
 
 exports.getAccount = function(req, res) {
-  res.render('account/profile', {
-    title: 'Mi perfil'
-  });
+  db.User.findById(req.params.id)
+  .then((user) => {
+    res.render('account/profile', {
+      title: 'Mi Perfil',
+      usuario: user
+    });
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 };
 
 exports.postUpdateProfile = function(req, res) {
   req.assert('email', 'Correo institucional no válido').isEmail();
-  UserRepo.changeProfileData(req.user.id, req.body)
-    .then(function(data) {
-      console.log(data);
-      
-      req.flash('success', { msg: 'Información personal actualizada.' });
-      res.redirect('/account');
-    })
-    .catch(function(err) {
-      console.log(err);
-      
-      req.flash('errors', { msg: err });
-      res.redirect('/account');
-    });
+
+  UserRepo.changeProfileData(req.params.id, req.body)
+  .then(function(data) {
+    console.log(data);
+    req.flash('success', { msg: 'Información personal actualizada.' });
+    res.redirect('/account/'+data.id);
+  })
+  .catch(function(err) {
+    console.log(err);
+    
+    req.flash('errors', { msg: err });
+    res.redirect('/account/'+data.id);
+  });
 };
 
 exports.postUpdateAcademicProfile = function(req, res) {
   req.assert('email', 'Correo institucional no valido').isEmail();
-  UserRepo.changeAcademicProfileData(req.user.id, req.body)
-    .then(function(data) {
-      console.log(data);
-      
-      req.flash('success', { msg: 'Perfil acádemico actualizado.' });
-      res.redirect('/account');
-    })
-    .catch(function(err) {
-      console.log(err);
-      
-      req.flash('errors', { msg: err });
-      res.redirect('/account');
-    });
+  UserRepo.changeAcademicProfileData(req.params.id, req.body)
+  .then(function(data) {
+    console.log(data);
+    
+    req.flash('success', { msg: 'Perfil acádemico actualizado.' });
+    res.redirect('/account/'+data.id);
+  })
+  .catch(function(err) {
+    console.log(err);
+    
+    req.flash('errors', { msg: err });
+    res.redirect('/account/'+data.id);
+  });
 };
 
 exports.postUpdateTeacherInformation = function(req, res) {
   req.assert('email', 'Correo institucional no válido').isEmail();
-  UserRepo.changeTeacherInformationData(req.user.id, req.body)
-    .then(function(data) {
-      console.log(data);
-      
-      req.flash('success', { msg: 'Información del docente actualizada.' });
-      res.redirect('/account');
-    })
-    .catch(function(err) {
-      console.log(err);
-      
-      req.flash('errors', { msg: err });
-      res.redirect('/account');
-    });
+  UserRepo.changeTeacherInformationData(req.params.id, req.body)
+  .then(function(data) {
+    console.log(data);
+    
+    req.flash('success', { msg: 'Información del docente actualizada.' });
+    res.redirect('/account/'+data.id);
+  })
+  .catch(function(err) {
+    console.log(err);
+    
+    req.flash('errors', { msg: err });
+    res.redirect('/account/'+data.id);
+  });
 };
 
 exports.postUpdatePassword = function(req, res) {
@@ -189,7 +197,7 @@ exports.postUpdatePassword = function(req, res) {
     return res.redirect('/account');
   }
 
-  UserRepo.changeUserPassword(req.user.id, req.body.password)
+  UserRepo.changeUserPassword(req.params.id, req.body.password)
     .then(function() {
       req.flash('success', { msg: 'la contraseña ha sido cambiada.' });
       res.redirect('/account');
@@ -201,7 +209,7 @@ exports.postUpdatePassword = function(req, res) {
 };
 
 exports.deleteAccount = function(req, res) {
-  UserRepo.removeUserById(req.user.id)
+  UserRepo.removeUserById(req.params.id)
     .then(function() {
       req.logout();
       req.flash('info', { msg: 'Your account has been deleted.' });
@@ -212,7 +220,7 @@ exports.deleteAccount = function(req, res) {
 exports.getOauthUnlink = function(req, res, next) {
   var provider = req.params.provider;
 
-  UserRepo.unlinkProviderFromAccount(provider, req.user.id)
+  UserRepo.unlinkProviderFromAccount(provider, req.params.id)
     .then(function() {
       req.flash('info', { msg: provider + ' cuenta ha sido desvinculada.' });
       res.redirect('/account');

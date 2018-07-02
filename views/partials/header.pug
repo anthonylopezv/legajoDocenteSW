@@ -20,7 +20,7 @@
         //- li
         //-   a(href='/status') Status
       ul.nav.navbar-nav.navbar-right
-        if !user
+        if !usuario
           li(class=(title === 'Iniciar sesión') ? 'active' : undefined)
             a(href='/login') Iniciar sesión
           li(class=(title === 'Crear cuenta') ? 'active' : undefined)
@@ -28,15 +28,15 @@
         else
           li.dropdown(class=(title === 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
-              if user.foto
-                img(src=user.foto style='height: 55px;width: 44px;')
+              if usuario.foto
+                img(src=usuario.foto style='height: 55px;width: 44px;')
               else
-                img(src=user.getProfilePicture(60))
-              span= user.profile.name || user.email || user.id
+                img(src=usuario.getProfilePicture(60))
+              span= usuario.email || usuario.id
               i.caret
             ul.dropdown-menu
               li
-                a(href='/account') Mi cuenta
+                a(href='/account/'+usuario.id) Mi cuenta
               li.divider
               li
                 a(href='/logout') Salir

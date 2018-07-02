@@ -183,25 +183,25 @@ app.get('/cuenta/verificar/:token', userController.getCheck)
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 
-app.get('/account', passportConf.isAuthenticated, userMiddleware.isVerified, userController.getAccount);
+app.get('/account/:id',userController.getAccount);
 // //api perfil
-// app.get('/api/account', passportConf.isAuthenticated, apiUserController.getApiAccount);
+// app.get('/api/account', , apiUserController.getApiAccount);
 
-app.post('/account/profile', passportConf.isAuthenticated, userMiddleware.isVerified, userController.postUpdateProfile);
+app.post('/account/profile/:id', userController.postUpdateProfile);
 // //api update profile
-// app.put('/api/account/profile', passportConf.isAuthenticated, apiUserController.apiPutUpdateProfile);
+// app.put('/api/account/profile', , apiUserController.apiPutUpdateProfile);
 
-app.post('/account/academic_profile', passportConf.isAuthenticated, userMiddleware.isVerified, userController.postUpdateAcademicProfile);
+app.post('/account/academic_profile/:id', userController.postUpdateAcademicProfile);
 // //api update academic_profile
-// app.put('/api/account/academic_profile', passportConf.isAuthenticated, apiUserController.apiPutUpdateAcademicProfile);
+// app.put('/api/account/academic_profile', , apiUserController.apiPutUpdateAcademicProfile);
 
-app.post('/account/teacher_information', passportConf.isAuthenticated,userMiddleware.isVerified, userController.postUpdateTeacherInformation);
+app.post('/account/teacher_information/:id', userController.postUpdateTeacherInformation);
 // //api update teacher_information
-// app.put('/api/account/teacher_information', passportConf.isAuthenticated, apiUserController.apiPutUpdateTeacherInformation);
+// app.put('/api/account/teacher_information', , apiUserController.apiPutUpdateTeacherInformation);
 
-app.post('/account/password', passportConf.isAuthenticated,userMiddleware.isVerified, userController.postUpdatePassword);
-app.delete('/account', passportConf.isAuthenticated, userController.deleteAccount);
-app.get('/account/unlink/:provider', passportConf.isAuthenticated,userMiddleware.isVerified, userController.getOauthUnlink);
+app.post('/account/password', userController.postUpdatePassword);
+app.delete('/account', userController.deleteAccount);
+app.get('/account/unlink/:provider', userController.getOauthUnlink);
 
 /**
  * API examples routes.

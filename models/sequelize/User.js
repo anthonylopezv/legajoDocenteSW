@@ -55,10 +55,10 @@ module.exports = function(db, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    verificado: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
-    },
+    // verificado: {
+    //   type: DataTypes.INTEGER,
+    //   defaultValue: 0
+    // },
     //Informacion Personal
     nombres: DataTypes.STRING,
     apell_pat: DataTypes.STRING,
@@ -79,7 +79,7 @@ module.exports = function(db, DataTypes) {
       type: DataTypes.STRING,
       unique: true
     },
-    password: DataTypes.STRING,
+    // password: DataTypes.STRING,
     genero: DataTypes.STRING(1),
     pag_web: DataTypes.STRING,
     foto: {
@@ -102,10 +102,10 @@ module.exports = function(db, DataTypes) {
     fech_ingreso: DataTypes.DATE,
     sunedu_ley: DataTypes.STRING(2),
     nivel_programa: DataTypes.STRING,
-    pregrado: DataTypes.STRING(2),
-    maestria: DataTypes.STRING(2),
-    doctorado: DataTypes.STRING(2),
-    categoria: DataTypes.STRING,
+    // pregrado: DataTypes.STRING(2),
+    // maestria: DataTypes.STRING(2),
+    // doctorado: DataTypes.STRING(2),
+    // categoria: DataTypes.STRING,
     regimen_dedicacion: DataTypes.STRING,
     horas_semanales: DataTypes.INTEGER,
     investigador: DataTypes.STRING(2),
@@ -119,7 +119,7 @@ module.exports = function(db, DataTypes) {
     resetPasswordExpires: DataTypes.DATE,
     resetPasswordToken: DataTypes.STRING,
 
-    verifiedToken: DataTypes.STRING,
+    // verifiedToken: DataTypes.STRING,
 
     //timestamps
     createdAt: DataTypes.DATE,
