@@ -9478,7 +9478,3 @@ textarea {
 
 .far {
   margin-right: 6px; }
-
-input:invalid {
-  border: 3px solid red;
-}

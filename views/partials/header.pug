@@ -1,4 +1,4 @@
-.navbar.navbar-default.navbar-fixed-top
+.navbar.navbar-default.navbar-fixed-top(style='padding-top: 6px;')
   .container
     .navbar-header
       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
@@ -21,10 +21,11 @@
         //-   a(href='/status') Status
       ul.nav.navbar-nav.navbar-right
         if !usuario
-          li(class=(title === 'Iniciar sesión') ? 'active' : undefined)
-            a(href='/login') Iniciar sesión
-          li(class=(title === 'Crear cuenta') ? 'active' : undefined)
-            a(href='/signup') Crear cuenta
+          
+          //- li(class=(title === 'Iniciar sesión') ? 'active' : undefined)
+          //-   a(href='/login') Iniciar sesión
+          //- li(class=(title === 'Crear cuenta') ? 'active' : undefined)
+          //-   a(href='/signup') Crear cuenta
         else
           li.dropdown(class=(title === 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -39,4 +40,4 @@
                 a(href='/account/'+usuario.id) Mi cuenta
               li.divider
               li
-                a(href='/logout') Salir
+                a(href='https://siga-fisi.herokuapp.com/dashboard') volver a SIGAP
