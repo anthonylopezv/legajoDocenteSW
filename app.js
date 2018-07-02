@@ -20,6 +20,7 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 const Promise = require('bluebird');
+const fileUpload = require('express-fileupload')
 
 //const MySQLStore = require('connect-mysql')({ session: session });
 const flash = require('express-flash');
@@ -53,6 +54,8 @@ const passportConf = require('./config/passport');
  */
 const app = express();
 app.locals.moment = require('moment');
+app.use(fileUpload())
+
 /* Avoid not responsing when server load is huge */
 // app.use(function(req, res, next) {
 //   if (toobusy()) {
@@ -82,7 +85,7 @@ app.use(logger('dev'));
 app.use(favicon(path.join(__dirname, 'public/favicon.png')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(multer({ dest: path.join(__dirname, 'uploads') }).single());
+// app.use(fileUpload(path.join(__dirname, 'uploads')));
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
@@ -153,6 +156,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+app.use('/static', express.static('uploads'));
 
 /**
  * Primary app routes.

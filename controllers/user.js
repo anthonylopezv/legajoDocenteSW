@@ -8,6 +8,7 @@ var passport = require('passport');
 var UserRepo = require('../repositories/UserRepository.js');
 var emailService = require('../services/emailService.js');
 var db = require('../models/sequelize');
+const fileUpload = require('express-fileupload')
 
 
 exports.getLogin = function(req, res) {
@@ -156,10 +157,15 @@ exports.postUpdateAcademicProfile = function(req, res) {
   req.assert('email', 'Correo institucional no valido').isEmail();
   UserRepo.changeAcademicProfileData(req.params.id, req.body)
   .then(function(data) {
-    console.log(data);
     
-    req.flash('success', { msg: 'Perfil acádemico actualizado.' });
-    res.redirect('/account/'+data.id);
+    let archivo = req.files.file
+    console.log(archivo)
+    archivo.mv(`./uploads/${archivo.name}`, err => {
+      if(err) return res.status(500).send({ message : err })
+      // return res.status(200).send({ message : 'File upload' })
+      req.flash('success', { msg: 'Perfil acádemico actualizado.' });
+      res.redirect('/account/'+data.id);
+    })
   })
   .catch(function(err) {
     console.log(err);

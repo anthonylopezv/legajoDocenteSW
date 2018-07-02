@@ -90,7 +90,7 @@ block content
   .page-header
     h3 Perfil Académico
 
-  form.form-horizontal(action='/account/academic_profile/'+usuario.id, method='POST')
+  form.form-horizontal(action='/account/academic_profile/'+usuario.id, method='POST', enctype='multipart/form-data')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
       label.col-sm-3.control-label(for='mayor_grado') Mayor grado académico del docente
@@ -118,9 +118,9 @@ block content
       .col-sm-7
         input.form-control(type='text', name='pais_grado',minlength="2", maxlength="60" id='pais_grado',placeholder="Ejemplo: Perú" value=usuario.pais_grado)    
     .form-group
-      label.col-sm-3.control-label(for='cv') Adjuntar Curriculum Vitae
+      label.col-sm-3.control-label(for='exampleInputFile') Adjuntar Curriculum Vitae
       .col-sm-7
-        input.form-control(type='text', name='cv', id='cv', value=usuario.cv)
+        input#exampleInputFile(type='file' name='file')
     .form-group
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
