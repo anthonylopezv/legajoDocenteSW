@@ -12,7 +12,7 @@ var db = require('../models/sequelize');
 
 exports.index = function(req, res) {
   var data = req.query
-  if (data.tipo == 'docente'){
+  if (data.tipo == 'Docente'){
     db.User.findById(data.id)
     .then((user) => {
       console.log(user)
