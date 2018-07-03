@@ -18,9 +18,11 @@ const lusca = require('lusca');
 const methodOverride = require('method-override');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
-const multer = require('multer');
 const Promise = require('bluebird');
-const fileUpload = require('express-fileupload')
+
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
 
 //const MySQLStore = require('connect-mysql')({ session: session });
 const flash = require('express-flash');
@@ -52,9 +54,18 @@ const passportConf = require('./config/passport');
 /**
  * Create Express server.
  */
+
+aws.config.update({
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  region: 'us-east-1' 
+});
+
 const app = express();
+const s3 = new aws.S3();
+
 app.locals.moment = require('moment');
-app.use(fileUpload())
+
 
 /* Avoid not responsing when server load is huge */
 // app.use(function(req, res, next) {
@@ -84,6 +95,18 @@ app.use(sass({
 app.use(logger('dev'));
 app.use(favicon(path.join(__dirname, 'public/favicon.png')));
 app.use(bodyParser.json());
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'upload-file-fisi',
+    key: function (request, file, cb) {
+      console.log(file);
+      cb(null, file.originalname);
+    }
+  })
+}).array('upload', 1);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(fileUpload(path.join(__dirname, 'uploads')));
 app.use(expressValidator());
@@ -183,6 +206,10 @@ app.get('/cuenta/verificar/:token', userController.getCheck)
 
 // //api signup 
 // app.post('/api/signup', apiUserController.apiPostSignup);
+
+app.post('/upload', upload, (req, res, next) => {
+  res.send('Successfully uploaded ' + req.files + ' files!')
+});
 
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);

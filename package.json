@@ -13,6 +13,7 @@
     "test-debug": "NODE_ENV=test node_modules/.bin/mocha --debug --debug-brk"
   },
   "dependencies": {
+    "aws-sdk": "^2.267.1",
     "bcrypt-nodejs": "0.0.3",
     "bitgo": "^1.6.1",
     "bluebird": "^3.3.5",
@@ -45,7 +46,8 @@
     "method-override": "^2.3.5",
     "moment": "^2.22.1",
     "morgan": "^1.7.0",
-    "multer": "^1.1.0",
+    "multer": "^1.3.1",
+    "multer-s3": "^2.7.0",
     "neo-async": "^1.8.2",
     "node-linkedin": "^0.5.3",
     "node-sass-middleware": "^0.11.0",

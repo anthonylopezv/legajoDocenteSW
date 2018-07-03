@@ -118,15 +118,25 @@ block content
       .col-sm-7
         input.form-control(type='text', name='pais_grado',minlength="2", maxlength="60" id='pais_grado',placeholder="Ejemplo: Perú" value=usuario.pais_grado)    
     .form-group
-      label.col-sm-3.control-label(for='exampleInputFile') Adjuntar Curriculum Vitae
-      .col-sm-7
-        input#exampleInputFile(type='file' name='file')
-    .form-group
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
             i.fas.fa-pencil-alt.fa-sm
             | Actualizar Perfil Académico
+  .page-header
+    h3 C.V del Docente
 
+  form.form-horizontal(method='POST', enctype="multipart/form-data", action='/upload')
+    //- input(type='hidden', name='_csrf', value=_csrf)  
+    .form-group
+      label.col-sm-3.control-label(for='file') Adjuntar Curriculum Vitae
+      .col-sm-7
+        input#exampleInputFile(type='file' name='upload')
+    .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn.btn-primary(type='submit')
+            i.fas.fa-pencil-alt.fa-sm
+            | Subir CV.
+  
   .page-header
     h3 Información del Docente 
 

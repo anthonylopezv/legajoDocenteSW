@@ -157,15 +157,8 @@ exports.postUpdateAcademicProfile = function(req, res) {
   req.assert('email', 'Correo institucional no valido').isEmail();
   UserRepo.changeAcademicProfileData(req.params.id, req.body)
   .then(function(data) {
-    
-    let archivo = req.files.file
-    console.log(archivo)
-    archivo.mv(`./uploads/${archivo.name}`, err => {
-      if(err) return res.status(500).send({ message : err })
-      // return res.status(200).send({ message : 'File upload' })
-      req.flash('success', { msg: 'Perfil acádemico actualizado.' });
-      res.redirect('/account/'+data.id);
-    })
+    req.flash('success', { msg: 'Perfil acádemico actualizado.' });
+    res.redirect('/account/'+data.id);
   })
   .catch(function(err) {
     console.log(err);
