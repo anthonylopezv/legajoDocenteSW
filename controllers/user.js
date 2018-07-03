@@ -141,7 +141,7 @@ exports.postUpdateProfile = function(req, res) {
 
   UserRepo.changeProfileData(req.params.id, req.body)
   .then(function(data) {
-    console.log(data);
+    console.log('Ver uno: ', req.body)
     req.flash('success', { msg: 'Información personal actualizada.' });
     res.redirect('/account/'+data.id);
   })
@@ -165,6 +165,19 @@ exports.postUpdateAcademicProfile = function(req, res) {
     
     req.flash('errors', { msg: err });
     res.redirect('/account/'+data.id);
+  });
+};
+
+exports.postUpdateCv = function(req, res) {
+  db.User.findById(req.params.id)
+  UserRepo.changeCvData(req.params.id, req.file)
+  .then(function(data) {
+    req.flash('success', { msg: 'Currículum vitae actualizado.' });
+    res.redirect('/account/'+data.id);
+  })
+  .catch(function(err) {    
+    req.flash('errors', { msg: err });
+    res.redirect('back');
   });
 };
 

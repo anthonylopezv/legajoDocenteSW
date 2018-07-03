@@ -77,6 +77,7 @@ repo.assignVerifiedToken = function(email, token) {
 };
 
 repo.changeProfileData = function(userId, reqBody) {
+  console.log('Ver 2: ', reqBody)
   return db.User.findById(userId)
     .then((user) => {
       user.email = reqBody.email || user.email;
@@ -148,7 +149,15 @@ repo.changeAcademicProfileData = function(userId, reqBody) {
       return user.save();
     });
 };
+repo.changeCvData = function(userId, reqBody) {
+  console.log('Ver lo que me llega cuando ya quiero guardar: ', reqBody)
+  return db.User.findById(userId)
+    .then((user) => {
+      user.cv = 'https://.s3.amazonaws.com/'+reqBody.bucket+'/'+reqBody.key || user.cv;
 
+      return user.save();
+    });
+};
 repo.apiChangeAcademicProfileData = function(userId, reqBody) {
   return db.User.findById(userId)
     .then((user) => {
@@ -156,7 +165,6 @@ repo.apiChangeAcademicProfileData = function(userId, reqBody) {
       user.menc_grado = reqBody.menc_grado || user.menc_grado;
       user.universidad = reqBody.universidad || user.universidad;
       user.pais_grado = reqBody.pais_grado || user.pais_grado;
-      user.cv = reqBody.cv || user.cv;
 
       return user.save();
     });

@@ -125,12 +125,17 @@ block content
   .page-header
     h3 C.V del Docente
 
-  form.form-horizontal(method='POST', enctype="multipart/form-data", action='/upload')
+  form.form-horizontal(method='POST', enctype="multipart/form-data", action='/upload/'+usuario.id)
     //- input(type='hidden', name='_csrf', value=_csrf)  
     .form-group
-      label.col-sm-3.control-label(for='file') Adjuntar Curriculum Vitae
+      label.col-sm-3.control-label(for='file') Adjuntar Currículum Vitae
       .col-sm-7
-        input#exampleInputFile(type='file' name='upload')
+        input#exampleInputFile(type='file' name='cv')
+        p
+          if usuario.cv
+            a(href=usuario.cv target='_blank') Ver mi C.V.
+          else  
+            | Aún no ha subido su C.V.  
     .form-group
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
