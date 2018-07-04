@@ -6,32 +6,32 @@ block content
 
   form.form-horizontal(action='/account/profile/'+usuario.id, method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='apell_pat') Apellido Paterno
       .col-sm-7
         input.form-control(type='text', name='apell_pat', pattern='[/^\s*([\pL\w\s]+)\s*,\s*([\pL\w\s-]+)\s*$/u]{4,}',title="Formato no válido",minlength="4", maxlength="20", id='apell_pat', value=usuario.apell_pat)
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='apell_mat') Apellido Materno
       .col-sm-7
         input.form-control(type='text', name='apell_mat', pattern='[/^\s*([\pL\w\s]+)\s*,\s*([\pL\w\s-]+)\s*$/u]{4,}',title="Formato no válido",minlength="4", maxlength="20", id='apell_mat', value=usuario.apell_mat)         
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='nombres') Nombres
       .col-sm-7
         input.form-control(type='text', name='nombres', pattern='[/^\s*([\pL\w\s]+)\s*,\s*([\pL\w\s-]+)\s*$/u]{3,}',title="Formato no válido",minlength="3", maxlength="30", id='nombres', value=usuario.nombres)
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label Género
       .col-sm-6
-        label.radio.col-sm-3
+        label.radio-inline
           input(type='radio', checked=usuario.genero=='M', name='genero', value='M', data-toggle='radio')
           span Masculino
-        label.radio.col-sm-3
+        label.radio-inline
           input(type='radio', checked=usuario.genero=='F', name='genero', value='F', data-toggle='radio')
           span Femenino
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='email') Correo
       .col-sm-7
         input.form-control(type='email', name='email', id='email', value=usuario.email)
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='pais') Nacionalidad
       .col-sm-7
         input.form-control(type='text',list='l1' name='pais', id='pais', value=usuario.pais,minlength="4", maxlength="7", pattern='[Pp]er[uú]|[Mm][eé]xico|[Ee]spaña')
@@ -39,35 +39,35 @@ block content
           option Perú
           option México
           option España
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='pais') Código institucional
       .col-sm-7
         input.form-control(type='text', name='codigo',maxlength="8", pattern='[0-9]{8}',title="Formato: solo puede ingresar 8 dígitos" id='codigo', value=usuario.codigo)    
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label Tipo de Documento
-      .col-sm-4
-        label.radio.col-sm-2
+      .col-sm-2
+        label.radio-inline
           input(type='radio', checked=usuario.tipo_document=='DNI', name='tipo_document', value='DNI', data-toggle='radio')
           span DNI
-        label.radio.col-sm-2
+        label.radio-inline
           input(type='radio', checked=usuario.tipo_document=='CE', name='tipo_document', value='CE', data-toggle='radio')
           span C.E
-      label.col-sm-1.control-label Nro. de Documento
-      .col-sm-2
+      label.col-sm-2.control-label Nro. de Documento
+      .col-sm-3
         input.form-control(type='text', name='nro_document', maxlength="8", pattern='[0-9]{8}',title="Formato: solo puede ingresar 8 dígitos", id='nro_document', value=usuario.nro_document)
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='pag_web') Página web
       .col-sm-7
         input.form-control(type='text', name='pag_web', id='pag_web', value=usuario.pag_web)
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='pag_web') Teléfono
       .col-sm-7
         input.form-control(type='text', name='telefono',maxlength="7", pattern='[0-9]{7}',title="Formato: solo puede ingresar 7 dígitos", id='telefono', value=usuario.telefono)
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='pag_web') Celular
       .col-sm-7
         input.form-control(type='text', name='celular',maxlength="9", pattern='[0-9]{9}',title="Formato: solo puede ingresar 9 dígitos", id='celular', value=usuario.celular)
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label Foto
       .col-sm-1
         a#uploadphoto.btn.btn-success 
@@ -81,7 +81,7 @@ block content
           img#photoactual.img-responsive(style='margin-left: 42px;', src=usuario.foto, width='180', height='250')
         else
           img#photoactual.img-responsive(style='margin-left: 42px;', src=usuario.getProfilePicture(), width='180', height='250')  
-    .form-group
+    .form-group.form-group-lg
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
           i.fas.fa-pencil-alt.fa-sm
@@ -92,7 +92,7 @@ block content
 
   form.form-horizontal(action='/account/academic_profile/'+usuario.id, method='POST', enctype='multipart/form-data')
     input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
+    .form-group.form-group-lg.form-group-lg.form-group-lg
       label.col-sm-3.control-label(for='mayor_grado') Mayor grado académico del docente
       .col-sm-7
         select.form-control(name='mayor_grado', value=usuario.mayor_grado)
@@ -105,19 +105,19 @@ block content
           option(value="Titulado") Titulado
           option(value="Doctor") Doctor
           option(value="Ph. D.") Ph. D.  
-    .form-group
+    .form-group.form-group-lg.form-group-lg.form-group-lg
       label.col-sm-3.control-label(for='menc_grado') Mención del mayor grado académico
       .col-sm-7
         input.form-control(type='text', name='menc_grado',minlength="2", maxlength="60" placeholder='Ejemplo: Ingeniería de Sistemas' id='menc_grado', value=usuario.menc_grado)
-    .form-group
+    .form-group.form-group-lg.form-group-lg.form-group-lg
       label.col-sm-3.control-label(for='universidad') Universidad que otorgo el mayor grado
       .col-sm-7
         input.form-control(type='text', name='universidad',minlength="2", maxlength="60" id='universidad',placeholder="Ejemplo: UNMSM" value=usuario.universidad)
-    .form-group
+    .form-group.form-group-lg.form-group-lg.form-group-lg
       label.col-sm-3.control-label(for='pais_grado') País de la universidad que otorgo el mayor grado 
       .col-sm-7
         input.form-control(type='text', name='pais_grado',minlength="2", maxlength="60" id='pais_grado',placeholder="Ejemplo: Perú" value=usuario.pais_grado)    
-    .form-group
+    .form-group.form-group-lg.form-group-lg.form-group-lg
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
             i.fas.fa-pencil-alt.fa-sm
@@ -127,16 +127,16 @@ block content
 
   form.form-horizontal(method='POST', enctype="multipart/form-data", action='/upload/'+usuario.id)
     //- input(type='hidden', name='_csrf', value=_csrf)  
-    .form-group
-      label.col-sm-3.control-label(for='file') Adjuntar Currículum Vitae
+    .form-group.form-group-lg.form-group-lg
+      label.col-sm-3.control-label(for='exampleInputFilebtn') Adjuntar Currículum Vitae
       .col-sm-7
-        input#exampleInputFile(type='file' name='cv')
-        p
+        input#exampleInputFilebtn.btn.btn-info(type='file' name='cv')
+        p.help-block
           if usuario.cv
             a(href=usuario.cv target='_blank') Ver mi C.V.
           else  
             | Aún no ha subido su C.V.  
-    .form-group
+    .form-group.form-group-lg.form-group-lg
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
             i.fas.fa-pencil-alt.fa-sm
@@ -147,45 +147,46 @@ block content
 
   form.form-horizontal(action='/account/teacher_information/'+usuario.id, method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label Fecha de ingreso como docente
-      .col-sm-2
+      .col-sm-3
         input.form-control(type='date', name='fech_ingreso', id='fech_ingreso', value=moment(usuario.fech_ingreso).add(1, 'd').format('YYYY-MM-DD'), min="1976-01-01", max="2013-12-30")             
       label.col-sm-4.control-label ¿Era docente universitario a la entrada en vigencia de la Ley 30220?
-      .col-sm-3
-        label.radio-inline.col-sm-1 
+      .col-sm-2
+        label.radio-inline
           input(type='radio', checked=usuario.sunedu_ley=='Si', name='sunedu_ley', value='Si', data-toggle='radio')
           span Si
-        label.radio-inline.col-sm-1
+        label.radio-inline
           input(type='radio', checked=usuario.sunedu_ley=='No', name='sunedu_ley', value='No', data-toggle='radio')
-          span No
-    .form-group
+          span No      
+    .form-group.form-group-lg
       label.col-sm-3.control-label Niveles de programa de estudio en donde da clases el docente
-      .col-sm-3
-        label.col-sm-6.control-label Pregrado
-        label.radio-inline.col-sm-1 
-          input(type='radio', checked=usuario.pregrado=='Si', name='pregrado', value='Si', data-toggle='radio')
-          span Si
-        label.radio-inline.col-sm-1
-          input(type='radio', checked=usuario.pregrado=='No', name='pregrado', value='No', data-toggle='radio')
-          span No
-      .col-sm-3
-        label.col-sm-6.control-label Maestría
-        label.radio-inline.col-sm-1 
-          input(type='radio', checked=usuario.maestria=='Si', name='maestria', value='Si', data-toggle='radio')
-          span Si
-        label.radio-inline.col-sm-1
-          input(type='radio', checked=usuario.maestria=='No', name='maestria', value='No', data-toggle='radio')
-          span No 
-      .col-sm-3
-        label.col-sm-6.control-label Doctorado
-        label.radio-inline.col-sm-1 
-          input(type='radio', checked=usuario.doctorado=='Si', name='doctorado', value='Si', data-toggle='radio')
-          span Si
-        label.radio-inline.col-sm-1
-          input(type='radio', checked=usuario.doctorado=='No', name='doctorado', value='No', data-toggle='radio')
-          span No
-    .form-group
+      .form-inline
+        .col-md-3
+          label.control-label Pregrado: 
+          label.radio-inline
+            input(type='radio', checked=usuario.pregrado=='Si', name='pregrado', value='Si', data-toggle='radio')
+            span Si
+          label.radio-inline
+            input(type='radio', checked=usuario.pregrado=='No', name='pregrado', value='No', data-toggle='radio')
+            span No
+        .col-md-3
+          label.control-label Maestría: 
+          label.radio-inline
+            input(type='radio', checked=usuario.maestria=='Si', name='maestria', value='Si', data-toggle='radio')
+            span Si
+          label.radio-inline
+            input(type='radio', checked=usuario.maestria=='No', name='maestria', value='No', data-toggle='radio')
+            span No 
+        .col-md-3
+          label.control-label Doctorado: 
+          label.radio-inline
+            input(type='radio', checked=usuario.doctorado=='Si', name='doctorado', value='Si', data-toggle='radio')
+            span Si
+          label.radio-inline
+            input(type='radio', checked=usuario.doctorado=='No', name='doctorado', value='No', data-toggle='radio')
+            span No
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='categoria') Categoría del docente
       .col-sm-3
         select.form-control(name='categoria' value=usuario.categoria)
@@ -206,18 +207,12 @@ block content
           option(value="Tiempo parcial") Tiempo parcial
           option(value="Tiempo completo") Tiempo completo
           option(value="Dedicacion exclusiva") Dedicacion exclusiva
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='horas_semanales') Número de horas semanales fijados por: 
-      //- label.col-sm-1.control-label Clases 
-      //- .col-sm-2
-      //-   input.form-control(type='number', name='horas_semanales', id='horas_semanales', value=usuario.horas_semanales)
-      //- label.col-sm-1.control-label Otras actividades 
-      //- .col-sm-2
-      //-   input.form-control(type='number', name='horas_semanales', id='horas_semanales', value=usuario.horas_semanales)
       label.col-sm-1.control-label Total
       .col-sm-2
         input.form-control(type='number', name='horas_semanales',min='1', max='20' id='horas_semanales', value=usuario.horas_semanales)    
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label ¿Es docente investigador?
       .col-sm-2
         label.radio-inline.col-sm-1 
@@ -234,7 +229,7 @@ block content
         label.radio-inline.col-sm-1
           input(type='radio', checked=usuario.dina=='No', name='dina', value='No', data-toggle='radio')
           span No    
-    .form-group
+    .form-group.form-group-lg
       label.col-sm-3.control-label(for='per_academico') Periodo académico
       .col-sm-4
         select.form-control(name='per_academico' value=usuario.per_academico)
@@ -245,7 +240,7 @@ block content
           option(value="2018-I") 2018-I
           option(value="2018-0") 2018-0
           option(value="2017-II") 2017-II
-    .form-group
+    .form-group.form-group-lg
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
             i.fas.fa-pencil-alt.fa-sm
