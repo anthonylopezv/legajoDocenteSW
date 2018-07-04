@@ -6,9 +6,14 @@
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='https://siga-fisi.herokuapp.com/dashboard')
-        i.fas.fa-cube
-        | Legajo Docente FISI
+      if usuario  
+        a.navbar-brand(href="/inicio/"+usuario.id)
+          i.fas.fa-cube
+          | Legajo Docente FISI
+      else
+        a.navbar-brand(href="")  
+          i.fas.fa-cube
+          | Legajo Docente FISI
     .collapse.navbar-collapse
       //- ul.nav.navbar-nav
       //-   li(class=(title === 'Inicio') ? 'active' : undefined)
@@ -38,6 +43,4 @@
             ul.dropdown-menu
               li
                 a(href='/account/'+usuario.id) Mi cuenta
-              li.divider
-              li
-                a(href='https://siga-fisi.herokuapp.com/dashboard') Volver a SIGA
+              

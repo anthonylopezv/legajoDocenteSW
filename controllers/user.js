@@ -136,6 +136,19 @@ exports.getAccount = function(req, res) {
   })
 };
 
+exports.findTeacher = (req, res) => {
+  db.User.findAll()
+  .then((users) => {
+    res.render('account/buscarProfesores', {
+      title: 'Buscar Profesor',
+      usuarios: users
+    });
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
 exports.postUpdateProfile = function(req, res) {
   req.assert('email', 'Correo institucional no válido').isEmail();
 
@@ -176,7 +189,7 @@ exports.postUpdateCv = function(req, res) {
     res.redirect('/account/'+data.id);
   })
   .catch(function(err) {    
-    req.flash('errors', { msg: 'Hubo un error al subir el C.V.' });
+    req.flash('errors', { msg: 'Hubo un error al subir el C.V.(solo se acepta archivo PDF o WORD)' });
     res.redirect('back');
   });
 };
