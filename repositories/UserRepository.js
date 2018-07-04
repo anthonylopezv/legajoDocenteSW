@@ -153,7 +153,7 @@ repo.changeCvData = function(userId, reqBody) {
   console.log('Ver lo que me llega cuando ya quiero guardar: ', reqBody)
   return db.User.findById(userId)
     .then((user) => {
-      user.cv = 'https://.s3.amazonaws.com/'+reqBody.bucket+'/'+reqBody.key || user.cv;
+      user.cv = reqBody.location || user.cv;
 
       return user.save();
     });

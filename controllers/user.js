@@ -176,7 +176,7 @@ exports.postUpdateCv = function(req, res) {
     res.redirect('/account/'+data.id);
   })
   .catch(function(err) {    
-    req.flash('errors', { msg: err });
+    req.flash('errors', { msg: 'Hubo un error al subir el C.V.' });
     res.redirect('back');
   });
 };

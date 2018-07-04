@@ -99,6 +99,7 @@ const upload = multer({
     s3: s3,
     bucket: 'upload-file-fisi',
     acl: 'public-read',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function (request, file, cb) {
       console.log(file);
       cb(null, file.originalname);
