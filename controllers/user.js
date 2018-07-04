@@ -136,6 +136,21 @@ exports.getAccount = function(req, res) {
   })
 };
 
+exports.allTeacher = (req, res) => {
+  db.User.findAll()
+  .then((user) => {
+    return res.status(200).json({
+      user
+    })
+  })
+  .catch((err) => {
+    return res.status(500).json({
+      error: "No hay registros en la tabla Docente.",
+      err
+    });
+  })
+}
+
 exports.findTeacher = (req, res) => {
   db.User.findAll()
   .then((users) => {

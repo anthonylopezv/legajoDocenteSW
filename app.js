@@ -185,9 +185,14 @@ app.use('/static', express.static('uploads'));
 /**
  * Primary app routes.
  */
+
+app.get('/api/teachers', userController.allTeacher);
+
 app.get('/', homeController.index);
 
 app.get('/inicio/:id', homeController.perfilPreview);
+
+app.get('/inicio', homeController.perfilPreview2);
 
 app.get('/login', userController.getLogin);
 

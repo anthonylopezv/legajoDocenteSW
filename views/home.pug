@@ -22,5 +22,35 @@ block content
           p
             a.btn.btn-default.btn-lg(href='/account/'+usuario.id, role='button', style='width: 100%') Ver mi perfil
   else
-    a(href='/buscar-docente')
-      h2 Buscar Docente
+    .col-xs-12.text-center
+      h1 BUSCAR PROFESOR
+
+    .row
+      .col-lg-4.col-lg-offset-2
+        input#search.form-control(type='search', value='', placeholder='Search using Fuzzy searching')  
+      .col-lg-4
+        input#search.form-control(type='search', value='', placeholder='Search using Fuzzy searching')
+    
+
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th #
+            th Header
+            th Header
+            th Header
+            th Header
+        tbody
+          tr
+            td 1,001
+            td Lorem
+            td ipsum
+            td dolor
+            td sit
+          tr
+            td 1,002
+            td amet
+            td consectetur
+            td adipiscing
+            td elit
