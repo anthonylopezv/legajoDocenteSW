@@ -130,7 +130,7 @@ block content
     .form-group.form-group-lg.form-group-lg
       label.col-sm-3.control-label(for='exampleInputFilebtn') Adjuntar Currículum Vitae
       .col-sm-7
-        input#exampleInputFilebtn.btn.btn-info(type='file' name='cv')
+        input#exampleInputFilebtn.btn.btn-info(type='file' name='cv' required)
         p.help-block
           if usuario.cv
             a(href=usuario.cv target='_blank') Ver mi C.V.
