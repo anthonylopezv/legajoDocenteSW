@@ -23,13 +23,13 @@ block content
             a.btn.btn-default.btn-lg(href='/account/'+usuario.id, role='button', style='width: 100%') Ver mi perfil
   else
     .col-xs-12.text-center
-      h1 buscar profesor
+      h1 buscar profe
     #main
       .row
         .col-lg-4.col-lg-offset-2
-          //- input#search.form-control(type='search', value='', placeholder='Buscar por codigo' v-model='codigo')  
+          //- input.form-control(type='text', placeholder='Buscar por codigo' v-model='codigo')  
         .col-lg-4
-          input#search.form-control(type='search', value='', placeholder='Buscar por nombre' v-model='name')
+          input.form-control(type='text', placeholder='Buscar por nombre' v-model='nombres')
       .table-responsive
         table.table.table-striped
           thead
@@ -39,10 +39,10 @@ block content
               th Apellidos
               //- th Código
               th 
-          tbody(v-for='item in buscarDocente')
-            tr
+          tbody
+            tr(v-for='item in buscarDocente')
               td 
               td {{ item.nombres }}
-              td {{ item.apell_pat }} {{ item.apell_mat }}
+              td {{ item.apell_pat }}
               //- td {{ item.codigo }}
-              td Ver mas
+              td Ver más
