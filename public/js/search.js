@@ -13,14 +13,13 @@ var app = new Vue({
       var urlUsers = 'https://fisitcsld.herokuapp.com/api/teachers';
       axios.get(urlUsers).then(response => {
         this.profesores = response.data
-        console.log(this.profesores)
       });
     }
   },
   computed: {
     buscarDocente: function () {
       return this.profesores.filter((item) => 
-        (item.nombres || '').includes(this.nombres)
+        item.nombres.includes(this.nombres)
       );
     }
   }
