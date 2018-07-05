@@ -3,7 +3,7 @@ var app = new Vue({
   data: {
     profesores: [],
     nombres: '',
-    // codigo: '',
+    apell_pat: ''
   },
   created: function () {
     this.obtenerProfesores();
@@ -18,9 +18,9 @@ var app = new Vue({
   },
   computed: {
     buscarDocente: function () {
-      return this.profesores.filter((item) => 
-        item.nombres.includes(this.nombres)
-      );
+      var result = this.profesores.filter((item) => item.nombres.toLowerCase().includes(this.nombres.toLowerCase()));
+      result = result.filter((item) => item.apell_pat.toLowerCase().includes(this.apell_pat.toLowerCase()))
+      return result
     }
   }
 });

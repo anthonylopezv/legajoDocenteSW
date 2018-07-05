@@ -23,13 +23,13 @@ block content
             a.btn.btn-default.btn-lg(href='/account/'+usuario.id, role='button', style='width: 100%') Ver mi perfil
   else
     .col-xs-12.text-center
-      h1 buscar profe
+      h1 Buscar Docente
     #main
       .row
         .col-lg-4.col-lg-offset-2
-          //- input.form-control(type='text', placeholder='Buscar por codigo' v-model='codigo')  
-        .col-lg-4
           input.form-control(type='text', placeholder='Buscar por nombre' v-model='nombres')
+        .col-lg-4
+          input.form-control(type='text', placeholder='Buscar por apellido' v-model='apell_pat')  
       .table-responsive
         table.table.table-striped
           thead
@@ -37,12 +37,14 @@ block content
               th #
               th Nombres
               th Apellidos
-              //- th Código
+              th Foto
               th 
           tbody
-            tr(v-for='item in buscarDocente')
-              td 
+            tr(v-for='(item, index) in buscarDocente')
+              td {{ index + 1 }}
               td {{ item.nombres }}
-              td {{ item.apell_pat }}
-              //- td {{ item.codigo }}
-              td Ver más
+              td {{ item.apell_pat }} {{ item.apell_mat }}
+              td 
+                img.img-responsive(style='max-width: 100px;display: block;margin: 0 auto;' :src='item.foto' alt='Foto de perfil')
+              td 
+                a.btn.btn-success(:href="'/perfil/docente/'+item.id", role='button') Ver Perfil

@@ -191,6 +191,8 @@ app.use('/static', express.static('uploads'));
 
 app.get('/api/teachers', userController.allTeacher);
 
+app.get('/perfil/docente/:id', userController.profileTeacher);
+
 app.get('/', homeController.index);
 
 app.get('/inicio/:id', homeController.perfilPreview);

@@ -136,6 +136,19 @@ exports.getAccount = function(req, res) {
   })
 };
 
+exports.profileTeacher = (req, res) => {
+  db.User.findById(req.params.id)
+  .then((user) => {
+    res.render('account/viewProfile', {
+      title: 'Ver Perfil',
+      docente: user
+    });
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
 exports.allTeacher = (req, res) => {
   db.User.findAll()
   .then((user) => {

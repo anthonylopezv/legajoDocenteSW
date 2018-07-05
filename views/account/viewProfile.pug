@@ -1,0 +1,321 @@
+extends ../layout
+
+block content
+  .row(style='padding-top: 10px;')
+    .col-md-2.col-md-offset-10
+      a.btn.btn-primary.btn-lg(href='https://siga-fisi.herokuapp.com/dashboard', role='button') Volver a SIGA
+  .page-header(style='margin-top: 0px;')
+    h3 Información Personal
+
+  form.form-horizontal(action='/account/profile/'+docente.id, method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='apell_pat') Apellido Paterno
+      .col-sm-7
+        input.form-control(type='text', name='apell_pat', pattern='[/^\s*([\pL\w\s]+)\s*,\s*([\pL\w\s-]+)\s*$/u]{4,}',title="Formato no válido",minlength="4", maxlength="20", id='apell_pat', value=docente.apell_pat disabled)
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='apell_mat') Apellido Materno
+      .col-sm-7
+        input.form-control(type='text', name='apell_mat', pattern='[/^\s*([\pL\w\s]+)\s*,\s*([\pL\w\s-]+)\s*$/u]{4,}',title="Formato no válido",minlength="4", maxlength="20", id='apell_mat', value=docente.apell_mat disabled)         
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='nombres') Nombres
+      .col-sm-7
+        input.form-control(type='text', name='nombres', pattern='[/^\s*([\pL\w\s]+)\s*,\s*([\pL\w\s-]+)\s*$/u]{3,}',title="Formato no válido",minlength="3", maxlength="30", id='nombres', value=docente.nombres disabled)
+    .form-group.form-group-lg
+      label.col-sm-3.control-label Género
+      .col-sm-6
+        label.radio-inline
+          input(type='radio', checked=docente.genero=='M', name='genero', value='M', data-toggle='radio' disabled)
+          span Masculino
+        label.radio-inline
+          input(type='radio', checked=docente.genero=='F', name='genero', value='F', data-toggle='radio' disabled)
+          span Femenino
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='email') Correo
+      .col-sm-7
+        input.form-control(type='email', name='email', id='email', value=docente.email disabled)
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='pais') Nacionalidad
+      .col-sm-7
+        input.form-control(type='text',list='l1' name='pais', id='pais', value=docente.pais,minlength="4", maxlength="7", pattern='[Pp]er[uú]|[Mm][eé]xico|[Ee]spaña' disabled)
+        datalist#l1
+          option Perú
+          option México
+          option España
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='pais') Código institucional
+      .col-sm-7
+        input.form-control(type='text', name='codigo',maxlength="8", pattern='[0-9]{8}',title="Formato: solo puede ingresar 8 dígitos" id='codigo', value=docente.codigo disabled)    
+    .form-group.form-group-lg
+      label.col-sm-3.control-label Tipo de Documento
+      .col-sm-2
+        label.radio-inline
+          input(type='radio', checked=docente.tipo_document=='DNI', name='tipo_document', value='DNI', data-toggle='radio' disabled)
+          span DNI
+        label.radio-inline
+          input(type='radio', checked=docente.tipo_document=='CE', name='tipo_document', value='CE', data-toggle='radio' disabled)
+          span C.E
+      label.col-sm-2.control-label Nro. de Documento
+      .col-sm-3
+        input.form-control(type='text', name='nro_document', maxlength="8", pattern='[0-9]{8}',title="Formato: solo puede ingresar 8 dígitos", id='nro_document', value=docente.nro_document disabled)
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='pag_web') Página web
+      .col-sm-7
+        input.form-control(type='text', name='pag_web', id='pag_web', value=docente.pag_web disabled)
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='pag_web') Teléfono
+      .col-sm-7
+        input.form-control(type='text', name='telefono',maxlength="7", pattern='[0-9]{7}',title="Formato: solo puede ingresar 7 dígitos", id='telefono', value=docente.telefono disabled)
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='pag_web') Celular
+      .col-sm-7
+        input.form-control(type='text', name='celular',maxlength="9", pattern='[0-9]{9}',title="Formato: solo puede ingresar 9 dígitos", id='celular', value=docente.celular disabled)
+    .form-group.form-group-lg
+      label.col-sm-3.control-label Foto
+      //- .col-sm-1
+      //-   a#uploadphoto.btn.btn-success 
+      //-     | Cambiar Foto
+      //- input#photolink(type="hidden" name="photo" value=docente.photo)  
+      //- img#photoactual.img-responsive(src=docente.photo, width='180', height='250')
+      .col-sm-7
+        //- img(src=docente.getProfilePicture(), class='profile', width='100', height='100')
+        input#photolink(type="hidden" name="foto" value=docente.foto)
+        if docente.foto  
+          img#photoactual.img-responsive(style='margin-left: 0px;', src=docente.foto, width='180', height='250')
+        else
+          img#photoactual.img-responsive(style='margin-left: 0px;', src=docente.getProfilePicture(), width='180', height='250')  
+    //- .form-group.form-group-lg
+    //-   .col-sm-offset-3.col-sm-4
+    //-     button.btn.btn.btn-primary(type='submit')
+    //-       i.fas.fa-pencil-alt.fa-sm
+    //-       | Actualizar Información Personal
+
+  .page-header
+    h3 Perfil Académico
+
+  form.form-horizontal(action='/account/academic_profile/'+docente.id, method='POST', enctype='multipart/form-data')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.form-group-lg.form-group-lg.form-group-lg
+      label.col-sm-3.control-label(for='mayor_grado') Mayor grado académico del docente
+      .col-sm-7
+        select.form-control(name='mayor_grado', value=docente.mayor_grado disabled)
+          if (docente.mayor_grado)
+            option(value=docente.mayor_grado disabled selected) #{docente.mayor_grado}
+          else
+            option(value='' disabled selected) Seleccione una opción  
+          option(value="Bachiller") Bachiller
+          option(value="Licenciado") Licenciado
+          option(value="Titulado") Titulado
+          option(value="Doctor") Doctor
+          option(value="Ph. D.") Ph. D.  
+    .form-group.form-group-lg.form-group-lg.form-group-lg
+      label.col-sm-3.control-label(for='menc_grado') Mención del mayor grado académico
+      .col-sm-7
+        input.form-control(type='text', name='menc_grado',minlength="2", maxlength="60" placeholder='Ejemplo: Ingeniería de Sistemas' id='menc_grado', value=docente.menc_grado disabled)
+    .form-group.form-group-lg.form-group-lg.form-group-lg
+      label.col-sm-3.control-label(for='universidad') Universidad que otorgo el mayor grado
+      .col-sm-7
+        input.form-control(type='text', name='universidad',minlength="2", maxlength="60" id='universidad',placeholder="Ejemplo: UNMSM" value=docente.universidad disabled)
+    .form-group.form-group-lg.form-group-lg.form-group-lg
+      label.col-sm-3.control-label(for='pais_grado') País de la universidad que otorgo el mayor grado 
+      .col-sm-7
+        input.form-control(type='text', name='pais_grado',minlength="2", maxlength="60" id='pais_grado',placeholder="Ejemplo: Perú" value=docente.pais_grado disabled)    
+    //- .form-group.form-group-lg.form-group-lg.form-group-lg
+    //-     .col-sm-offset-3.col-sm-4
+    //-       button.btn.btn.btn-primary(type='submit')
+    //-         i.fas.fa-pencil-alt.fa-sm
+    //-         | Actualizar Perfil Académico
+  .page-header
+    h3 C.V del Docente
+
+  form.form-horizontal(method='POST', enctype="multipart/form-data", action='/upload/'+docente.id)
+    //- input(type='hidden', name='_csrf', value=_csrf)  
+    .form-group.form-group-lg.form-group-lg
+      label.col-sm-3.control-label(for='exampleInputFilebtn') Currículum Vitae
+      .col-sm-7
+        //- input#exampleInputFilebtn.btn.btn-info(type='file' name='cv' required)
+        p.help-block
+          if docente.cv
+            a(href=docente.cv target='_blank') Ver C.V.
+          else  
+            | Aún no ha subido su C.V.  
+    //- .form-group.form-group-lg.form-group-lg
+    //-     .col-sm-offset-3.col-sm-4
+    //-       button.btn.btn.btn-primary(type='submit')
+    //-         i.fas.fa-pencil-alt.fa-sm
+    //-         | Subir C.V.
+  
+  .page-header
+    h3 Información del Docente 
+
+  form.form-horizontal(action='/account/teacher_information/'+docente.id, method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.form-group-lg
+      label.col-sm-3.control-label Fecha de ingreso como docente
+      .col-sm-3
+        input.form-control(type='date', name='fech_ingreso', id='fech_ingreso', value=moment(docente.fech_ingreso).add(1, 'd').format('YYYY-MM-DD'), min="1976-01-01", max="2013-12-30" disabled)             
+      label.col-sm-4.control-label ¿Era docente universitario a la entrada en vigencia de la Ley 30220?
+      .col-sm-2
+        label.radio-inline
+          input(type='radio', checked=docente.sunedu_ley=='Si', name='sunedu_ley', value='Si', data-toggle='radio' disabled)
+          span Si
+        label.radio-inline
+          input(type='radio', checked=docente.sunedu_ley=='No', name='sunedu_ley', value='No', data-toggle='radio' disabled)
+          span No       disabled
+    .form-group.form-group-lg
+      label.col-sm-3.control-label Niveles de programa de estudio en donde da clases el docente
+      .form-inline
+        .col-md-3
+          label.control-label Pregrado: 
+          label.radio-inline
+            input(type='radio', checked=docente.pregrado=='Si', name='pregrado', value='Si', data-toggle='radio' disabled)
+            span Si
+          label.radio-inline
+            input(type='radio', checked=docente.pregrado=='No', name='pregrado', value='No', data-toggle='radio' disabled)
+            span No
+        .col-md-3
+          label.control-label Maestría: 
+          label.radio-inline
+            input(type='radio', checked=docente.maestria=='Si', name='maestria', value='Si', data-toggle='radio' disabled)
+            span Si
+          label.radio-inline
+            input(type='radio', checked=docente.maestria=='No', name='maestria', value='No', data-toggle='radio' disabled)
+            span No 
+        .col-md-3
+          label.control-label Doctorado: 
+          label.radio-inline
+            input(type='radio', checked=docente.doctorado=='Si', name='doctorado', value='Si', data-toggle='radio' disabled)
+            span Si
+          label.radio-inline
+            input(type='radio', checked=docente.doctorado=='No', name='doctorado', value='No', data-toggle='radio' disabled)
+            span No
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='categoria') Categoría del docente
+      .col-sm-3
+        select.form-control(name='categoria' value=docente.categoria disabled)
+          if (docente.categoria)
+            option(value=docente.categoria disabled selected) #{docente.categoria}
+          else
+            option(value='' disabled selected) Seleccione una opción 
+          option(value="Ordinario asociado") Ordinario asociado
+          option(value="Ordinario principal") Ordinario principal
+          option(value="Ordinario auxiliar") Ordinario auxiliar
+      label.col-sm-3.control-label(for='regimen_dedicacion') Regimen de dedicación
+      .col-sm-3
+        select.form-control(name='regimen_dedicacion' value=docente.regimen_dedicacion disabled)
+          if (docente.regimen_dedicacion)
+            option(value=docente.regimen_dedicacion disabled selected) #{docente.regimen_dedicacion}
+          else
+            option(value='' disabled selected) Seleccione una opción 
+          option(value="Tiempo parcial") Tiempo parcial
+          option(value="Tiempo completo") Tiempo completo
+          option(value="Dedicacion exclusiva") Dedicacion exclusiva
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='horas_semanales') Número de horas semanales: 
+      //- label.col-sm-1.control-label Total
+      .col-sm-3
+        input.form-control(type='number', name='horas_semanales',min='1', max='20' id='horas_semanales', value=docente.horas_semanales disabled)    
+    .form-group.form-group-lg
+      label.col-sm-3.control-label ¿Es docente investigador?
+      .col-sm-2 disabled
+        label.radio-inline.col-sm-1 
+          input(type='radio', checked=docente.investigador=='Si', name='investigador', value='Si', data-toggle='radio' disabled)
+          span Si
+        label.radio-inline.col-sm-1
+          input(type='radio', checked=docente.investigador=='No', name='investigador', value='No', data-toggle='radio' disabled)
+          span No
+      label.col-sm-3.control-label ¿Esta registrado en DINA?
+      .col-sm-2
+        label.radio-inline.col-sm-1 
+          input(type='radio', checked=docente.dina=='Si', name='dina', value='Si', data-toggle='radio' disabled)
+          span Si
+        label.radio-inline.col-sm-1
+          input(type='radio', checked=docente.dina=='No', name='dina', value='No', data-toggle='radio' disabled)
+          span No    
+    .form-group.form-group-lg
+      label.col-sm-3.control-label(for='per_academico') Periodo académico
+      .col-sm-4
+        select.form-control(name='per_academico' value=docente.per_academico disabled)
+          if (docente.per_academico)
+            option(value=docente.per_academico disabled selected) #{docente.per_academico}
+          else
+            option(value='' disabled selected) Seleccione una opción 
+          option(value="2018-I") 2018-I
+          option(value="2018-0") 2018-0
+          option(value="2017-II") 2017-II
+    //- .form-group.form-group-lg
+    //-     .col-sm-offset-3.col-sm-4
+    //-       button.btn.btn.btn-primary(type='submit')
+    //-         i.fas.fa-pencil-alt.fa-sm
+    //-         | Actualizar Información del Docente
+
+  //- .page-header
+  //-   h3 Cambiar contraseña
+
+  //- form.form-horizontal(action='/account/password', method='POST')
+  //-   input(type='hidden', name='_csrf', value=_csrf)
+  //-   .form-group
+  //-     label.col-sm-3.control-label(for='password') Nueva contraseña
+  //-     .col-sm-7
+  //-       input.form-control(type='password', name='password', id='password')
+  //-   .form-group
+  //-     label.col-sm-3.control-label(for='confirmPassword') Confirmar contraseña
+  //-     .col-sm-7
+  //-       input.form-control(type='password', name='confirmPassword', id='confirmPassword')
+  //-   .form-group
+  //-     .col-sm-offset-3.col-sm-4
+  //-       button.btn.btn-primary(type='submit')
+  //-         i.fas.fa-lock.fa-sm
+  //-         | Cambiar contraseña
+
+  //- .page-header
+  //-   h3 Delete Account
+
+  //- form.form-horizontal(action='/account/delete', method='POST', onsubmit="return confirm('Are you sure you want to delete your account?');")
+  //-   .form-group
+  //-     p.col-sm-offset-3.col-sm-4 You can delete your account, but keep in mind this action is irreversible.
+  //-     input(type='hidden', name='_csrf', value=_csrf)
+  //-     .col-sm-offset-3.col-sm-4
+  //-       button.btn.btn-danger(type='submit')
+  //-         i.fas.fa-trash-alt.fa-sm
+  //-         | Delete my account
+
+  //- .page-header
+  //-   h3 Cuentas vinculadas
+  //- .form-horizontal
+  //-   .form-group
+  //-     .col-sm-offset-3.col-sm-4
+      //-   if docente.instagram
+      //-     p: a.text-danger(href='/account/unlink/instagram') Unlink your Instagram account
+      //-   else
+      //-     p: a(href='/auth/instagram') Link your Instagram account
+      //- .col-sm-offset-3.col-sm-4
+      //-   if docente.google
+      //-     p: a.text-danger(href='/account/unlink/google') Unlink your Google account
+      //-   else
+      //-     p: a(href='/auth/google') Link your Google account
+      //- .col-sm-offset-3.col-sm-4
+      //-   if docente.facebook
+      //-     p: a.text-danger(href='/account/unlink/facebook') Unlink your Facebook account
+      //-   else
+      //-     p: a(href='/auth/facebook') Link your Facebook account
+      //- .col-sm-offset-3.col-sm-4
+      //-   if docente.twitter
+      //-     p: a.text-danger(href='/account/unlink/twitter') Unlink your Twitter account
+      //-   else
+      //-     p: a(href='/auth/twitter') Link your Twitter account
+      //- .col-sm-offset-3.col-sm-4
+      //-   if docente.github
+      //-     p: a.text-danger(href='/account/unlink/github') Unlink your GitHub account
+      //-   else
+      //-     p: a(href='/auth/github') Link your GitHub account
+      //- .col-sm-offset-3.col-sm-4
+      //-   if docente.tokens.linkedin
+      //-     p: a.text-danger(href='/account/unlink/linkedin') Desenlace su cuenta de LinkedIn
+      //-   else  
+      //-     p: a(href='/auth/linkedin') Enlace su cuenta de LinkedIn
+      //- .col-sm-offset-3.col-sm-4
+      //-   if docente.steam
+      //-     p: a.text-danger(href='/account/unlink/steam') Unlink your Steam account
+      //-   else
+      //-     p: a(href='/auth/steam') Link your Steam account
