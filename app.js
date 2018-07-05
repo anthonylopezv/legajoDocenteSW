@@ -4,7 +4,6 @@
  */
 // const toobusy = require('toobusy-js');
 const express = require('express');
-var cors = require('cors')
 require('dotenv').config();
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
@@ -95,6 +94,20 @@ app.use(favicon(path.join(__dirname, 'public/favicon.png')));
 
 app.use(bodyParser.json());
 
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+  next();
+});
+
 const upload = multer({
   storage: multerS3({
     s3: s3,
@@ -175,7 +188,7 @@ app.use('/static', express.static('uploads'));
  * Primary app routes.
  */
 
-app.get('/api/teachers', cors(), userController.allTeacher);
+app.get('/api/teachers', userController.allTeacher);
 
 app.get('/', homeController.index);
 
