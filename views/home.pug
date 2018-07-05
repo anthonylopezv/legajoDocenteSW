@@ -23,34 +23,26 @@ block content
             a.btn.btn-default.btn-lg(href='/account/'+usuario.id, role='button', style='width: 100%') Ver mi perfil
   else
     .col-xs-12.text-center
-      h1 BUSCAR PROFESOR
-
-    .row
-      .col-lg-4.col-lg-offset-2
-        input#search.form-control(type='search', value='', placeholder='Search using Fuzzy searching')  
-      .col-lg-4
-        input#search.form-control(type='search', value='', placeholder='Search using Fuzzy searching')
-    
-
-    .table-responsive
-      table.table.table-striped
-        thead
-          tr
-            th #
-            th Header
-            th Header
-            th Header
-            th Header
-        tbody
-          tr
-            td 1,001
-            td Lorem
-            td ipsum
-            td dolor
-            td sit
-          tr
-            td 1,002
-            td amet
-            td consectetur
-            td adipiscing
-            td elit
+      h1 buscar profe
+    #main
+      .row
+        .col-lg-4.col-lg-offset-2
+          //- input.form-control(type='text', placeholder='Buscar por codigo' v-model='codigo')  
+        .col-lg-4
+          input.form-control(type='text', placeholder='Buscar por nombre' v-model='nombres')
+      .table-responsive
+        table.table.table-striped
+          thead
+            tr
+              th #
+              th Nombres
+              th Apellidos
+              //- th Código
+              th 
+          tbody
+            tr(v-for='item in buscarDocente')
+              td 
+              td {{ item.nombres }}
+              td {{ item.apell_pat }} {{ item.apell_mat }}
+              //- td {{ item.codigo }}
+              td Ver más
