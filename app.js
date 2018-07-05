@@ -96,7 +96,8 @@ app.use(bodyParser.json());
 
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "true");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("access-control-allow-credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
