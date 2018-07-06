@@ -11,9 +11,9 @@ block content
       .row
         .col-md-4.col-md-offset-4(style='text-align: center; margin-bottom: 20px;background-color:#4d90fc;border-radius: 5px;')
           if usuario.foto
-            img(style='margin-top: 25px;border-radius: 15px;', src=usuario.foto, alt='Generic placeholder image', width='220', height='290')
+            img(style='margin-top: 25px;border-radius: 15px;', src=usuario.foto, alt='Generic placeholder image', width='280', height='290')
           else 
-            img(style='margin-top: 25px;border-radius: 15px;', src=usuario.getProfilePicture(60), alt='Generic placeholder image', width='220', height='290')  
+            img(style='margin-top: 25px;border-radius: 15px;', src=usuario.getProfilePicture(60), alt='Generic placeholder image', width='280', height='290')  
           - var nombres = usuario.nombres;
           - var primerN = nombres.split(' ')[0];
           h2(style='color: white') prof. #{primerN} #{usuario.apell_pat}
