@@ -149,100 +149,101 @@ block content
     h3 Información del Docente 
 
   form.form-horizontal(action='/account/teacher_information/'+docente.id, method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group.form-group-lg
-      label.col-sm-3.control-label Fecha de ingreso como docente
-      .col-sm-3
-        input.form-control(type='date', name='fech_ingreso', id='fech_ingreso', value=moment(docente.fech_ingreso).add(1, 'd').format('YYYY-MM-DD'), min="1976-01-01", max="2013-12-30" disabled)             
-      label.col-sm-4.control-label ¿Era docente universitario a la entrada en vigencia de la Ley 30220?
-      .col-sm-2
-        label.radio-inline
-          input(type='radio', checked=docente.sunedu_ley=='Si', name='sunedu_ley', value='Si', data-toggle='radio' disabled)
-          span Si
-        label.radio-inline
-          input(type='radio', checked=docente.sunedu_ley=='No', name='sunedu_ley', value='No', data-toggle='radio' disabled)
-          span No       disabled
-    .form-group.form-group-lg
-      label.col-sm-3.control-label Niveles de programa de estudio en donde da clases el docente
-      .form-inline
-        .col-md-3
-          label.control-label Pregrado: 
+    fieldset(disabled='')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group.form-group-lg
+        label.col-sm-3.control-label Fecha de ingreso como docente
+        .col-sm-3
+          input.form-control(type='date', name='fech_ingreso', id='fech_ingreso', value=moment(docente.fech_ingreso).add(1, 'd').format('YYYY-MM-DD'), min="1976-01-01", max="2013-12-30" )             
+        label.col-sm-4.control-label ¿Era docente universitario a la entrada en vigencia de la Ley 30220?
+        .col-sm-2
           label.radio-inline
-            input(type='radio', checked=docente.pregrado=='Si', name='pregrado', value='Si', data-toggle='radio' disabled)
+            input(type='radio', checked=docente.sunedu_ley=='Si', name='sunedu_ley', value='Si', data-toggle='radio' )
             span Si
           label.radio-inline
-            input(type='radio', checked=docente.pregrado=='No', name='pregrado', value='No', data-toggle='radio' disabled)
+            input(type='radio', checked=docente.sunedu_ley=='No', name='sunedu_ley', value='No', data-toggle='radio' )
+            span No  
+      .form-group.form-group-lg
+        label.col-sm-3.control-label Niveles de programa de estudio en donde da clases el docente
+        .form-inline
+          .col-md-3
+            label.control-label Pregrado: 
+            label.radio-inline
+              input(type='radio', checked=docente.pregrado=='Si', name='pregrado', value='Si', data-toggle='radio' )
+              span Si
+            label.radio-inline
+              input(type='radio', checked=docente.pregrado=='No', name='pregrado', value='No', data-toggle='radio' )
+              span No
+          .col-md-3
+            label.control-label Maestría: 
+            label.radio-inline
+              input(type='radio', checked=docente.maestria=='Si', name='maestria', value='Si', data-toggle='radio' )
+              span Si
+            label.radio-inline
+              input(type='radio', checked=docente.maestria=='No', name='maestria', value='No', data-toggle='radio' )
+              span No 
+          .col-md-3
+            label.control-label Doctorado: 
+            label.radio-inline
+              input(type='radio', checked=docente.doctorado=='Si', name='doctorado', value='Si', data-toggle='radio' )
+              span Si
+            label.radio-inline
+              input(type='radio', checked=docente.doctorado=='No', name='doctorado', value='No', data-toggle='radio' )
+              span No
+      .form-group.form-group-lg
+        label.col-sm-3.control-label(for='categoria') Categoría del docente
+        .col-sm-3
+          select.form-control(name='categoria' value=docente.categoria disabled)
+            if (docente.categoria)
+              option(value=docente.categoria disabled selected) #{docente.categoria}
+            else
+              option(value='' disabled selected) Seleccione una opción 
+            option(value="Ordinario asociado") Ordinario asociado
+            option(value="Ordinario principal") Ordinario principal
+            option(value="Ordinario auxiliar") Ordinario auxiliar
+        label.col-sm-3.control-label(for='regimen_dedicacion') Regimen de dedicación
+        .col-sm-3
+          select.form-control(name='regimen_dedicacion' value=docente.regimen_dedicacion disabled)
+            if (docente.regimen_dedicacion)
+              option(value=docente.regimen_dedicacion disabled selected) #{docente.regimen_dedicacion}
+            else
+              option(value='' disabled selected) Seleccione una opción 
+            option(value="Tiempo parcial") Tiempo parcial
+            option(value="Tiempo completo") Tiempo completo
+            option(value="Dedicacion exclusiva") Dedicacion exclusiva
+      .form-group.form-group-lg
+        label.col-sm-3.control-label(for='horas_semanales') Número de horas semanales: 
+        //- label.col-sm-1.control-label Total
+        .col-sm-3
+          input.form-control(type='number', name='horas_semanales',min='1', max='20' id='horas_semanales', value=docente.horas_semanales )    
+      .form-group.form-group-lg
+        label.col-sm-3.control-label ¿Es docente investigador?
+        .col-sm-2
+          label.radio-inline.col-sm-1 
+            input(type='radio', checked=docente.investigador=='Si', name='investigador', value='Si', data-toggle='radio' )
+            span Si
+          label.radio-inline.col-sm-1
+            input(type='radio', checked=docente.investigador=='No', name='investigador', value='No', data-toggle='radio' )
             span No
-        .col-md-3
-          label.control-label Maestría: 
-          label.radio-inline
-            input(type='radio', checked=docente.maestria=='Si', name='maestria', value='Si', data-toggle='radio' disabled)
+        label.col-sm-3.control-label ¿Esta registrado en DINA?
+        .col-sm-2
+          label.radio-inline.col-sm-1 
+            input(type='radio', checked=docente.dina=='Si', name='dina', value='Si', data-toggle='radio' )
             span Si
-          label.radio-inline
-            input(type='radio', checked=docente.maestria=='No', name='maestria', value='No', data-toggle='radio' disabled)
-            span No 
-        .col-md-3
-          label.control-label Doctorado: 
-          label.radio-inline
-            input(type='radio', checked=docente.doctorado=='Si', name='doctorado', value='Si', data-toggle='radio' disabled)
-            span Si
-          label.radio-inline
-            input(type='radio', checked=docente.doctorado=='No', name='doctorado', value='No', data-toggle='radio' disabled)
-            span No
-    .form-group.form-group-lg
-      label.col-sm-3.control-label(for='categoria') Categoría del docente
-      .col-sm-3
-        select.form-control(name='categoria' value=docente.categoria disabled)
-          if (docente.categoria)
-            option(value=docente.categoria disabled selected) #{docente.categoria}
-          else
-            option(value='' disabled selected) Seleccione una opción 
-          option(value="Ordinario asociado") Ordinario asociado
-          option(value="Ordinario principal") Ordinario principal
-          option(value="Ordinario auxiliar") Ordinario auxiliar
-      label.col-sm-3.control-label(for='regimen_dedicacion') Regimen de dedicación
-      .col-sm-3
-        select.form-control(name='regimen_dedicacion' value=docente.regimen_dedicacion disabled)
-          if (docente.regimen_dedicacion)
-            option(value=docente.regimen_dedicacion disabled selected) #{docente.regimen_dedicacion}
-          else
-            option(value='' disabled selected) Seleccione una opción 
-          option(value="Tiempo parcial") Tiempo parcial
-          option(value="Tiempo completo") Tiempo completo
-          option(value="Dedicacion exclusiva") Dedicacion exclusiva
-    .form-group.form-group-lg
-      label.col-sm-3.control-label(for='horas_semanales') Número de horas semanales: 
-      //- label.col-sm-1.control-label Total
-      .col-sm-3
-        input.form-control(type='number', name='horas_semanales',min='1', max='20' id='horas_semanales', value=docente.horas_semanales disabled)    
-    .form-group.form-group-lg
-      label.col-sm-3.control-label ¿Es docente investigador?
-      .col-sm-2 disabled
-        label.radio-inline.col-sm-1 
-          input(type='radio', checked=docente.investigador=='Si', name='investigador', value='Si', data-toggle='radio' disabled)
-          span Si
-        label.radio-inline.col-sm-1
-          input(type='radio', checked=docente.investigador=='No', name='investigador', value='No', data-toggle='radio' disabled)
-          span No
-      label.col-sm-3.control-label ¿Esta registrado en DINA?
-      .col-sm-2
-        label.radio-inline.col-sm-1 
-          input(type='radio', checked=docente.dina=='Si', name='dina', value='Si', data-toggle='radio' disabled)
-          span Si
-        label.radio-inline.col-sm-1
-          input(type='radio', checked=docente.dina=='No', name='dina', value='No', data-toggle='radio' disabled)
-          span No    
-    .form-group.form-group-lg
-      label.col-sm-3.control-label(for='per_academico') Periodo académico
-      .col-sm-4
-        select.form-control(name='per_academico' value=docente.per_academico disabled)
-          if (docente.per_academico)
-            option(value=docente.per_academico disabled selected) #{docente.per_academico}
-          else
-            option(value='' disabled selected) Seleccione una opción 
-          option(value="2018-I") 2018-I
-          option(value="2018-0") 2018-0
-          option(value="2017-II") 2017-II
+          label.radio-inline.col-sm-1
+            input(type='radio', checked=docente.dina=='No', name='dina', value='No', data-toggle='radio' )
+            span No    
+      .form-group.form-group-lg
+        label.col-sm-3.control-label(for='per_academico') Periodo académico
+        .col-sm-4
+          select.form-control(name='per_academico' value=docente.per_academico disabled)
+            if (docente.per_academico)
+              option(value=docente.per_academico disabled selected) #{docente.per_academico}
+            else
+              option(value='' disabled selected) Seleccione una opción 
+            option(value="2018-I") 2018-I
+            option(value="2018-0") 2018-0
+            option(value="2017-II") 2017-II
     //- .form-group.form-group-lg
     //-     .col-sm-offset-3.col-sm-4
     //-       button.btn.btn.btn-primary(type='submit')
