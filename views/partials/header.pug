@@ -8,8 +8,7 @@
         span.icon-bar
       if usuario  
         a.navbar-brand(href="/inicio/"+usuario.id)
-          i.fas.fa-cube
-          | Legajo Docente FISI
+          img(src="http://aulavirtual.sistemas.unmsm.edu.pe/pregrado2017/pluginfile.php/2/course/section/2/logofisi.png", alt="", style='    width:100%;height: 58px;margin-top: -20px;')
       else
         a.navbar-brand(href="/inicio")  
           i.fas.fa-cube
@@ -35,10 +34,10 @@
           li.dropdown(class=(title === 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               if usuario.foto
-                img(src=usuario.foto style='height: 55px;width: 44px;')
+                img(src=usuario.foto style='height: 55px;width: 44px;border-radius:50%;')
               else
                 img(src=usuario.getProfilePicture(60))
-              span= usuario.email || usuario.id
+              span(style='font-weight: bold;')= usuario.email || usuario.id
               i.caret
             ul.dropdown-menu
               li

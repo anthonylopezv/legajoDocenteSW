@@ -10,7 +10,9 @@ block content
   form.form-horizontal(action='/account/profile/'+docente.id, method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.form-group-lg
+      br
       label.col-sm-3.control-label(for='apell_pat') Apellido Paterno
+      br
       .col-sm-7
         input.form-control(type='text', name='apell_pat', pattern='[/^\s*([\pL\w\s]+)\s*,\s*([\pL\w\s-]+)\s*$/u]{4,}',title="Formato no válido",minlength="4", maxlength="20", id='apell_pat', value=docente.apell_pat disabled)
     .form-group.form-group-lg

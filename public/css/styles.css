@@ -1,0 +1,67 @@
+h1 {
+	font-weight: bold !important;
+	text-shadow: 1px 1px 1px #946819 !important;
+}
+
+h3 {
+	font-size: 24px !important;
+	text-shadow: 1px 1px 1px #777777 !important;
+	text-transform: uppercase !important;
+}
+
+h4 {
+	text-shadow: 3px 1px 1px #000 !important;
+	color: white !important;
+}
+
+.navbar-default {
+	border: 0;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+	background: #3a87ad !important;
+	/* color: white; */
+}
+
+.navbar-default {
+	background-color: #3a87ad !important;
+	border-color: rgba(238, 238, 238, 0.9);
+}
+
+.seccion-perfil {
+	background-image: url('http://www.delfinnetsoftware.com/wp-content/uploads/2016/08/ingenieria.png');
+	background-size: auto 100%;
+	background-repeat: repeat;
+}
+
+.btn-primary {
+	color: #fff !important;
+	background-color: #02598b !important;
+	border-color: transparent !important;
+	border: 0 !important;
+	border-radius: 20px !important;
+	text-shadow: 1px 1px !important;
+}
+
+.form-horizontal .control-label {
+	text-align: left !important;
+	margin-bottom: 0;
+	padding-top: 7px;
+}
+
+.boton-cambiar-foto {
+	text-align: center !important;
+}
+
+.btn-success {
+	color: #fff !important;
+	background-color: #60bf60 !important;
+	border-color: #54ba54 !important;
+	border-radius: 20px !important;
+	border: transparent !important;
+	font-weight: bold !important;
+}
+
+footer {
+	background: #3a87ad !important;
+	color: white !important;
+	text-shadow: 1px -1px 1px #b94a48 !important;
+}

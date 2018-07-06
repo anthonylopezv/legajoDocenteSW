@@ -4,47 +4,51 @@ block content
   .row(style='padding-top: 10px;')
     .col-md-2.col-md-offset-10
       a.btn.btn-primary.btn-lg(href='https://siga-fisi.herokuapp.com/dashboard', role='button') Volver a SIGAP
-  h1 Legajo Docente - FISI 2018
-  p.lead Informacion académica de los profesores para el lincenciamiento
-  if usuario 
-    .container.marketing
-      .row
-        .col-md-4.col-md-offset-4(style='text-align: center; margin-bottom: 20px;background-color:#4d90fc;border-radius: 5px;')
-          if usuario.foto
-            img(style='margin-top: 25px;border-radius: 15px;', src=usuario.foto, alt='Generic placeholder image', width='280', height='290')
-          else 
-            img(style='margin-top: 25px;border-radius: 15px;', src=usuario.getProfilePicture(60), alt='Generic placeholder image', width='280', height='290')  
-          - var nombres = usuario.nombres;
-          - var primerN = nombres.split(' ')[0];
-          h2(style='color: white') prof. #{primerN} #{usuario.apell_pat}
-          h4 Código: 
-            span #{usuario.codigo}
-          p
-            a.btn.btn-default.btn-lg(href='/account/'+usuario.id, role='button', style='width: 100%') Ver mi perfil
-  else
-    .col-xs-12.text-center
-      h1 Buscar Docente
-    #main
-      .row
-        .col-lg-4.col-lg-offset-2
-          input.form-control(type='text', placeholder='Buscar por nombre' v-model='nombres')
-        .col-lg-4
-          input.form-control(type='text', placeholder='Buscar por apellido' v-model='apell_pat')  
-      .table-responsive
-        table.table.table-striped
-          thead
-            tr
-              th #
-              th Nombres
-              th Apellidos
-              th Foto
-              th 
-          tbody
-            tr(v-for='(item, index) in buscarDocente')
-              td {{ index + 1 }}
-              td {{ item.nombres }}
-              td {{ item.apell_pat }} {{ item.apell_mat }}
-              td 
-                img.img-responsive(style='max-width: 100px;display: block;margin: 0 auto;' :src='item.foto' alt='Foto de perfil')
-              td 
-                a.btn.btn-success(:href="'/perfil/docente/'+item.id", role='button') Ver Perfil
+  center
+    h1 Legajo Docente - FISI 2018
+    p.lead Informacion académica de los profesores para el lincenciamiento
+    if usuario 
+      .container.marketing
+        .row
+          .col-md-4.col-md-offset-4(style='text-align: center; margin-bottom: 20px;background-color:#382F84;;border-radius: 5px;box-shadow: 3px 3px 5px 1px #000;')
+            if usuario.foto
+              img(style='margin-top: 25px;border-radius: 50%;border: 5px solid white;', src=usuario.foto, alt='Generic placeholder image', width='280', height='290')
+            else 
+              img(style='margin-top: 25px;border-radius: 15px;', src=usuario.getProfilePicture(60), alt='Generic placeholder image', width='280', height='290')  
+            - var nombres = usuario.nombres;
+            - var primerN = nombres.split(' ')[0];
+            h2(style='color: white;text-shadow: 1px 1px 1px #b94a48;') Docente: #{primerN} #{usuario.apell_pat}
+            h4 Código: 
+              span #{usuario.codigo}
+            p
+              .col-md-offset-3.col-md-6.col-md-offset-3
+                a.btn.btn-default.btn-lg(href='/account/'+usuario.id, role='button', style='width: 100%;border-radius: 20px;font-weight: bold;') Ver mi perfil
+                br
+                br
+    else
+      .col-xs-12.text-center
+        h1 Buscar Docente
+      #main
+        .row
+          .col-lg-4.col-lg-offset-2
+            input.form-control(type='text', placeholder='Buscar por nombre' v-model='nombres')
+          .col-lg-4
+            input.form-control(type='text', placeholder='Buscar por apellido' v-model='apell_pat')  
+        .table-responsive
+          table.table.table-striped
+            thead
+              tr
+                th #
+                th Nombres
+                th Apellidos
+                th Foto
+                th 
+            tbody
+              tr(v-for='(item, index) in buscarDocente')
+                td {{ index + 1 }}
+                td {{ item.nombres }}
+                td {{ item.apell_pat }} {{ item.apell_mat }}
+                td 
+                  img.img-responsive(style='max-width: 100px;display: block;margin: 0 auto;' :src='item.foto' alt='Foto de perfil')
+                td 
+                  a.btn.btn-success(:href="'/perfil/docente/'+item.id", role='button') Ver Perfil
